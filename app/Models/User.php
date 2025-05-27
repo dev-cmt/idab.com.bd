@@ -44,6 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_path',
         'member_type_id',
         'committee_type_id',
+        'email_verified_at',
         'status',
         'is_admin',
         'approve_by',

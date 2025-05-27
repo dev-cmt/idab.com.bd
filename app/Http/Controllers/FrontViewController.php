@@ -8,6 +8,7 @@ use App\Models\Admin\Gallery;
 use App\Models\Admin\Event;
 use App\Models\Master\MemberType;
 use App\Models\Master\CommitteeType;
+use App\Models\Admin\BlogPost;
 use App\Models\User;
 use DB;
 
@@ -146,20 +147,13 @@ class FrontViewController extends Controller
      */
     public function blogs()
     {
-        return view('frontend.pages.blogs');
+        $data = BlogPost::latest()->orderByDesc('id')->take(10)->orderBy('id')->get();
+        return view('frontend.pages.blogs', compact('data'));
     }
-    public function blogShow()
+    public function blogDetails($id)
     {
-        return view('frontend.pages.blogs_details');
-    }
-    
-    public function blogShowdetail()
-    {
-        return view('frontend.pages.blogs_details_two');
-    }
-     public function blogShowdetailTwo()
-    {
-        return view('frontend.pages.blogs_details_three');
+        $data = BlogPost::findOrFail($id);
+        return view('frontend.pages.blog-details', compact('data'));
     }
     /**________________________________________________________________________________________
      * Contact Menu Pages

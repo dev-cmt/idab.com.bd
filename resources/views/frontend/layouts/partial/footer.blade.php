@@ -43,11 +43,12 @@
                             
                         </p>
                         <div class="social-links mt-3">
-                            <a href="https://www.facebook.com/IDABofficialsite" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="https://www.facebook.com/share/1CUz75MfdB/" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="https://www.youtube.com/@Idabbd" class="Youtube"><i class="bx bxl-youtube"></i></a>
                             <!--<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>-->
-                            <!--<a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>-->
+                            <a href="https://www.instagram.com/idab_bd" class="instagram"><i class="bx bxl-instagram"></i></a>
                             <!--<a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>-->
-                            <!--<a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>-->
+                            <a href="https://www.linkedin.com/company/interior-designers-association-of-bangladesh/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
                         </div>
                     </div>
                 </div>

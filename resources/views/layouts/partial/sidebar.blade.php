@@ -117,6 +117,9 @@
                     @canany('Event access','Event create','Event edit','Event delete')
                     <li><a href="{{route('event.index')}}">Manage Events</a></li>
                     @endcanany
+                    @canany('Event access','Event create','Event edit','Event delete')
+                    <li><a href="{{route('blog.index')}}">Manage Blog</a></li>
+                    @endcanany
                 </ul>
             </li>
             @endcanany

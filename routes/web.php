@@ -48,7 +48,7 @@ Route::get('pages/message', [FrontViewController::class, 'message'])->name('page
 Route::get('pages/memorandum', [FrontViewController::class, 'memorandum'])->name('page.memorandum');
 //______________ COMMITTEE
 Route::get('pages/{id}/committee', [FrontViewController::class, 'committee'])->name('page.committee');
-//______________ MEMBERS
+//______________ MEMBERS 
 Route::get('pages/{id}/member', [FrontViewController::class, 'member'])->name('page.member');
 //______________ WHY BE MEMBER
 Route::get('pages/why-be-member',[FrontViewController::class,'whyBeMember'])->name('page.why-be-member');
@@ -67,9 +67,7 @@ Route::get('pages/events/{id}/details', [FrontViewController::class,'eventShow']
 Route::get('page/corporate-partners', [FrontViewController::class, 'corporatePartners'])->name('page.corporate-partners');
 //______________ BLOGS
 Route::get('page/blogs', [FrontViewController::class, 'blogs'])->name('page.blogs');
-Route::get('page/blogs-details', [FrontViewController::class, 'blogShow'])->name('page.blogs_details');
-Route::get('page/blog_details_two', [FrontViewController::class, 'blogShowdetail'])->name('page.blog_details_two');
-Route::get('page/blog_details_three', [FrontViewController::class, 'blogShowdetailTwo'])->name('page.blog_details_three');
+Route::get('page/news-content-details/{id}', [FrontViewController::class, 'blogDetails'])->name('page.blog-details');
 //______________ CONTACT US
 Route::get('pages/contact-us', [FrontViewController::class, 'contact'])->name('page.contact-us');
 Route::post('contact-us/store', [ContactController::class,'contactStore'])->name('contact-us.store');
@@ -95,6 +93,7 @@ Route::middleware([ 'auth:sanctum','verified','member', config('jetstream.auth_s
 /* Apply Membership */
 Route::get('/member-register/create', [MemberController::class,'create'])->name('member_register.create');
 Route::post('/member-register/store', [MemberController::class,'store'])->name('member_register.store');
+Route::post('/member-verification/find', [MemberController::class, 'findMember'])->name('member.find');
 
 /* Payment check */
 Route::group(['middleware' => ['verified']], function () {
@@ -218,6 +217,14 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('dashboard-gallery/{id}/show',[GalleryController::class,'bvGalleryImage'])->name('dashboard-gallery.images');
     //-- EVENTS
     Route::resource('event', EventController::class);
+        //-- BLOG
+    Route::get('blog-news/index', [BlogController::class,'index'])->name('blog.index');
+    Route::get('blog-news/create', [BlogController::class,'create'])->name('blog.create');
+    Route::post('blog-news/store', [BlogController::class,'store'])->name('blog.store');
+    Route::get('blog-news/edit/{blog}', [BlogController::class,'edit'])->name('blog.edit');
+    Route::put('blog-news/update/{blog}', [BlogController::class,'update'])->name('blog.update');
+    Route::get('blog-news/show/{blog}', [BlogController::class,'show'])->name('blog.show');
+    Route::delete('blog-news/delete/{id}', [BlogController::class,'destroy'])->name('blog.delete');
     //-- CONTACT
     Route::resource('blog', BlogController::class);
     //-- CONTACT

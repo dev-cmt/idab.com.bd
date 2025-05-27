@@ -4,150 +4,91 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use App\Models\Admin\Event;
-use App\Models\Admin\EventRegister;
-use App\Models\Admin\EventPayment;
+use App\Models\Admin\BlogPost;
 use App\Models\User;
-use Image;
+use App\Helpers\ImageHelper;
 
 class BlogController extends Controller
 {
     public function index()
     {
-        // $data =Event::all();
-        // return view('layouts.pages.blog.index',compact('data'));
-        return view('layouts.pages.blog.index');
+        $data = BlogPost::with('author')->latest()->get();
+        return view('layouts.pages.blog.index', compact('data'));
     }
 
     public function create()
     {
-        return view('layouts.pages.event.create');
+        $users = User::all(); // Fetch all users to assign as authors
+        return view('layouts.pages.blog.create', compact('users'));
     }
 
     public function store(Request $request)
     {
-        $validated=$request -> validate([
-            'title'=> 'required',
-            'caption'=> 'required',
-            'self'=> 'required',
-            'image'=> 'required|image|mimes:jpg,png,jpeg,gif,svg'
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            // 'url_slug' => 'required|string|unique:blog_posts,url_slug',
+            'content' => 'nullable',
+            'image_path' => 'nullable',
+            'publish_date' => 'nullable',
+            'status' => 'required|in:published,draft',
         ]);
 
-        $data= new Event();
-        if($request->hasFile('image')) {
-            //get filename with extension
-            $filenamewithextension = $request->file('image')->getClientOriginalName();
-            //get filename without extension
-            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-     
-            //get file extension
-            $extension = $request->file('image')->getClientOriginalExtension();
-            //filename to store
-            $filenametostore = $filename.'_'.time().'.'.$extension;
-     
-            //Upload File
-            $request->file('image')->move('public/images/events/', $filenametostore); //--Upload Location
-            // $request->file('profile_image')->storeAs('public/profile_images', $filenametostore);
-     
-            //Resize image here
-            $thumbnailpath = public_path('images/events/'.$filenametostore); //--Get File Location
-            // $thumbnailpath = public_path('storage/images/profile/'.$filenametostore);
-            
-            $img = Image::make($thumbnailpath)->resize(1200, 850, function($constraint) {
-                $constraint->aspectRatio();
-            }); 
-            $img->save($thumbnailpath);
+        BlogPost::create([
+            'title' => $validated['title'],
+            'url_slug' => Str::slug($validated['title']),
+            'image_path' => ImageHelper::uploadImage($validated['image_path'], 'images/news-blog', null),
+            'content' => $validated['content'],
+            'publish_date' => $validated['publish_date'],
+            'author_id' => Auth::user()->id,
+            'status' => $validated['status'],
+        ]);
 
-            //Img Path Save
-            $data->image=$filenametostore;
-        }
-        $data->title=$request->title;
-        $data->caption=$request->caption;
-        $data->event_date=$request->event_date;
-        $data->self=$request->self;
-        $data->spouse=$request->spouse;
-        $data->child_above=$request->child_above;
-        $data->child_bellow=$request->child_bellow;
-        $data->guest=$request->guest;
-        $data->driver=$request->driver;
-        $data->description=$request->description;
-        $data->location=$request->location;
-        $data->status=$request->status;
-        $data->user_id= Auth::user()->id;
-        $data->image=$filenametostore;
-        $data->save();
-
-        $notification=array('messege'=>'Event add successfully!','alert-type'=>'success');
-        return redirect()->route('event.index')->with($notification);
-    }
-    
-    public function show(Event $post)
-    {
-        //
+        
+        $notification=array('messege' => 'New & blog add successfully!','alert-type'=>'success');
+        return redirect()->route('blog.index')->with($notification);
     }
 
-    public function edit($id)
+    public function edit(BlogPost $blog)
     {
-        $data=Event::findOrFail($id);
-        return view('layouts.pages.event.edit')->with('data',$data);
+        $users = User::all(); // Fetch all users to assign as authors
+        return view('layouts.pages.blog.edit', compact('blog', 'users'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, BlogPost $blog)
     {
-        $data=Event::findOrFail($id);
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'url_slug' => 'nullable|string|unique:blog_posts,url_slug,' . $blog->id,
+            'content' => 'nullable',
+            'publish_date' => 'nullable',
+            'status' => 'required|in:published,draft',
+        ]);
 
-        if($request->hasFile('image')) {
-            if (File::exists("public/images/events/".$data->image)) {
-                File::delete("public/images/events/".$data->image);
-            }
-            //get filename with extension
-            $filenamewithextension = $request->file('image')->getClientOriginalName();
-            //get filename without extension
-            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-     
-            //get file extension
-            $extension = $request->file('image')->getClientOriginalExtension();
-            //filename to store
-            $filenametostore = $filename.'_'.time().'.'.$extension;
-     
-            //Upload File
-            $request->file('image')->move('public/images/events/', $filenametostore); //--Upload Location
-            // $request->file('profile_image')->storeAs('public/profile_images', $filenametostore);
-     
-            //Resize image here
-            $thumbnailpath = public_path('images/events/'.$filenametostore); //--Get File Location
-            // $thumbnailpath = public_path('storage/images/profile/'.$filenametostore);
-            
-            $img = Image::make($thumbnailpath)->resize(1200, 850, function($constraint) {
-                $constraint->aspectRatio();
-            }); 
-            $img->save($thumbnailpath);
-            $data->image=$filenametostore;
-        }
-        //-------Save Data
-        $data->title=$request->title;
-        $data->caption=$request->caption;
-        $data->event_date=$request->event_date;
-        $data->self=$request->self;
-        $data->spouse=$request->spouse;
-        $data->child_above=$request->child_above;
-        $data->child_bellow=$request->child_bellow;
-        $data->guest=$request->guest;
-        $data->driver=$request->driver;
-        $data->description=$request->description;
-        $data->location=$request->location;
-        $data->status=$request->status;
-        $data->save();
+        $blog->update([
+            'title' => $validated['title'],
+            'url_slug' => Str::slug($validated['title']),
+            'image_path' => ImageHelper::uploadImage($request->image_path, 'images/news-blog', $blog->image_path),
+            'content' => $validated['content'],
+            'publish_date' => $validated['publish_date'],
+            'author_id' => Auth::user()->id,
+            'status' => $validated['status'],
+        ]);
 
-        $notification=array('messege'=>'Event add successfully!','alert-type'=>'success');
-        return redirect()->route('event.index')->with($notification);
+        $notification=array('messege' => 'New & blog add successfully!','alert-type'=>'success');
+        return redirect()->route('blog.index')->with($notification);
+    }
+
+    public function show(BlogPost $blog)
+    {
+        return view('layouts.pages.blog.show', compact('blog'));
     }
 
     public function destroy($id)
     {
-         $data=Event::findOrFail($id);
+         $data = BlogPost::findOrFail($id);
 
          if (File::exists("public/images/events/".$data->image)) {
              File::delete("public/images/events/".$data->image);

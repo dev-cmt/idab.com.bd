@@ -275,8 +275,8 @@
                                 <!--    </div>-->
                                 <!--</div>-->
                                 <div class="col-md-8">
-                                    <h4 class="mb-4"><i class="bi bi-amd text-danger"></i> First 100 Member 50% Discount</h4>
-                                    <h5 class="mb-4">Student Member</h5>
+                                    <!--<h4 class="mb-4"><i class="bi bi-amd text-danger"></i> First 100 Member 50% Discount</h4>-->
+                                    <h3 class="mb-4">Student Member</h3>
                                     <h5 class="mb-4">Eligibility for Student membership</h5>
                                     <p>•	Must be Student of Bachelor of Architect, Interior Design, Diploma Architect from any reputed university, Govt polytechnic or IDAB recognized institute.</p>
                                     <h5>Documents</h5>
@@ -285,8 +285,8 @@
                                     <p><i class="bi bi-check-lg me-3"></i>Passport size picture with white background.</p>
                                     <p><i class="bi bi-check-lg me-3"></i>Relevant head of department’s acknowledgment letter.</p>
                                     <p><i class="bi bi-check-lg me-3"></i>NID copy</p></p>
-                                    <p class="mb-4">(Registration Fee 1000/-)</p>
-                                     <a href="{{route('page.requirements_student')}}" class="btn btn-info btn-sm">Read More</a>
+                                    <p><i class="bi bi-check-lg me-3"></i>500/-</p></p>
+                                    <a href="{{route('page.requirements_student')}}" class="btn btn-info btn-sm">Read More</a>
                                 </div>
                                
                             </div>
@@ -308,8 +308,8 @@
                                     <p><i class="bi bi-check-lg me-3"></i>Trade license/ Job Certificate</p>
                                     <p><i class="bi bi-check-lg me-3"></i>Updated TIN paper</p>
                                     <p><i class="bi bi-check-lg me-3"></i>NID</p>
-                                     <p class="mb-4">(Registration Fee 2000/-) (Annual Fee 4000/-)</p>
-                                     <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
+                                    <p><i class="bi bi-check-lg me-3"></i>3000/-</p>
+                                    <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
                                 </div>
               
                             </div>
@@ -331,8 +331,8 @@
                                     <p><i class="bi bi-check-lg me-3"></i>Trade license/ Job Certificate with 5 years’ experience.</p>
                                     <p><i class="bi bi-check-lg me-3"></i>Updated TIN paper</p>
                                     <p><i class="bi bi-check-lg me-3"></i>NID</p>
-                                    <p class="mb-4">(Registration Fee 2000/-) (Annual Fee 4000/-)</p>
-                                     <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
+                                    <p><i class="bi bi-check-lg me-3"></i>3000/-</p>
+                                    <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
                                 </div>
                               
                             </div>
@@ -355,8 +355,8 @@
                                     <p><i class="bi bi-check-lg me-3"></i>Updated Trade License as Interior design Company</p>
                                     <p><i class="bi bi-check-lg me-3"></i>Updated TIN paper</p>
                                     <p><i class="bi bi-check-lg me-3"></i>NID</p>
-                                    <p class="mb-4">(Registration Fee 2000/-) (Annual Fee 4000/-)</p>
-                                     <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
+                                    <p><i class="bi bi-check-lg me-3"></i>3000/-</p>
+                                    <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
                                 </div>
                              
                             </div>
@@ -379,8 +379,8 @@
                                     <p><i class="bi bi-check-lg me-3"></i>Updated Trade License</p>
                                     <p><i class="bi bi-check-lg me-3"></i>Updated TIN paper</p>
                                     <p><i class="bi bi-check-lg me-3"></i>NID</p>
-                                    <p class="mb-4">(Registration Fee 2000/-) (Annual Fee 10000/-)</p>
-                                     <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
+                                    <p><i class="bi bi-check-lg me-3"></i>15000/-</p>
+                                    <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
                                 </div>
                              
                             </div>
@@ -400,7 +400,7 @@
                                     <p><i class="bi bi-check-lg me-3"></i>4.Valid Trade License</p>
                                     <p><i class="bi bi-check-lg me-3"></i>5.Valid Tin Certificate</p>
                                     <p><i class="bi bi-check-lg me-3"></i>6.NID</p>
-                                    <p class="mb-4">(Registration Fee 000/-) (Annual Fee 0000/-)</p>
+                                    <p><i class="bi bi-check-lg me-3"></i>7.00/-</p>
                                     <a href="#" class="button">Read More</a>
                                 </div>
                              

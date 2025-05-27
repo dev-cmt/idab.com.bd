@@ -63,7 +63,7 @@
     
     <script>
         $(document).ready(function() {
-            $('#homePageModal').modal('show');
+            $('#homePageModal').modal('hide');
         });
     </script>
     <script>
@@ -166,5 +166,7 @@
     </script>
 
     @yield('script')
+    
+    @stack('script')
 </body>
 </html>

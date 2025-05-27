@@ -170,7 +170,6 @@
                                                     @endif
                                                 </div>
                                                 
-                                                
                                             </div>
                                         </div>
                                         <!--Item-->

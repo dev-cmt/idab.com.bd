@@ -151,9 +151,9 @@ class MemberController extends Controller
                 $highestNumber = User::where('member_code', 'like', "$prefix$currentYear$currentMonth%")->max('member_code');
 
                 // Extract last number safely
-                $lastNumber = $highestNumber ? intval(substr($highestNumber, -3)) : 0;
+                $lastNumber = $highestNumber ? intval(substr($highestNumber, -2)) : 0;
                 $newNumber = $lastNumber + 1;
-                $formattedNewNumber = str_pad($newNumber, 3, '0', STR_PAD_LEFT);
+                $formattedNewNumber = str_pad($newNumber, 2, '0', STR_PAD_LEFT);
 
                 // Generate Member Code (S2503004)
                 $memberCode = ($prefix == '-') ? "NEW" : "$prefix$currentYear$currentMonth$formattedNewNumber";
@@ -420,13 +420,15 @@ class MemberController extends Controller
 
     public function downloadTradeLicence($id)
     {
+        
         try {
             $data = InfoDocument::findOrFail($id);
             $filePath = public_path($data->trade_licence);
-            
-            if (!File::exists($filePath)) {
+            // dd($filePath);
+
+            if (file_exists($filePath)) {
                 return Response::download($filePath);
-            }else {
+            } else {
                 return abort(404, 'File not found.');
             }
         } catch (\Exception $e) {
@@ -537,6 +539,34 @@ class MemberController extends Controller
             }
         } catch (\Exception $e) {
             return abort(500, 'An error occurred.');
+        }
+    }
+
+
+    public function findMember(Request $request)
+    {
+        $request->validate([
+            'member_code' => 'required|string'
+        ]);
+
+        $member = User::where('member_code', $request->member_code)->first();
+
+        if ($member) {
+            return response()->json([
+                'success' => true,
+                'id' => $member->id,
+                'member_code' => $member->member_code,
+                'name' => $member->name,
+                'email' => $member->email,
+                'member_type' => $member->memberType->name,
+                'join_date' => $member->created_at,
+                'profile_photo_path' => $member->profile_photo_path,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Member not found!"
+            ]);
         }
     }
     
