@@ -36,11 +36,10 @@
                         <li><a href="{{Route('member.index', $item->id )}}">{{$item->name}} </a></li>
                     @endforeach
                     @canany('Member approve access','Member approved', 'Member approve record')
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Member Approve</a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{Route('members-approve.index')}}">Member Approve</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{Route('members-approve.index')}}">Member Approve</a></li>
+                    @endcanany
+                    @canany('Member approve access','Member approved', 'Member approve record')
+                    <li><a href="{{Route('member-csv.download')}}">Report Member</a></li>
                     @endcanany
                     
                     @canany('Data Setting')
@@ -119,6 +118,9 @@
                     @endcanany
                     @canany('Event access','Event create','Event edit','Event delete')
                     <li><a href="{{route('blog.index')}}">Manage Blog</a></li>
+                    @endcanany
+                    @canany('Event access','Event create','Event edit','Event delete')
+                    <li><a href="{{route('newsletters.index')}}">Manage Newsletter</a></li>
                     @endcanany
                 </ul>
             </li>

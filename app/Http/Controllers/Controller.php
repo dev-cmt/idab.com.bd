@@ -27,7 +27,7 @@ class Controller extends BaseController
                 view()->share('message', $this->message);
             }
             // Retrieve Member types
-            $this->memberType = MemberType::get();
+            $this->memberType = MemberType::orderBy('index', 'ASC')->get();
             view()->share('memberType', $this->memberType);
             // Retrieve Committee types
             $this->committeeType = CommitteeType::get(); // Fixed assignment

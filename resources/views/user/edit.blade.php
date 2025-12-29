@@ -145,6 +145,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-lg-5 col-form-label">Committee Designation</label>
+                                    <div class="col-lg-7">
+                                        <input type="text" name="committee_designation" id="committee_designation" class="form-control @error('committee_designation') is-invalid @enderror" value="{{ old('committee_designation', $user->committee_designation) }}" placeholder="Enter committee designation">
+                                        @error('committee_designation')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-lg-5 col-form-label">Select Role</label>
                                     <div class="col-lg-7">
                                         <select class="form-control default-select" id="roles" name="roles">

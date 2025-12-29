@@ -175,6 +175,10 @@
                                     <label class="form-label">Message</label>
                                     <textarea class="form-control py-3" name="message" value="{{old('message')}}" rows="2" placeholder="Enter your message here..."></textarea>
                                 </div>
+                                
+                                <div class="col-md-12 mt-2" id="bKash-qr" style="display: none">
+                                    <img src="{{asset('public/images')}}/payment/qr_bKash.jpg" style="width:70%; margin:auto;" alt="Payment upay"/>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-10 mt-2">
@@ -219,11 +223,13 @@
                 }
             });
             if(methodId == 2){
+                $('#bKash-qr').hide();
                 $('#transferNumber').hide();
                 $('#transactionNumber').hide();
                 $('#labelChange').html('Bank-Number');
                 $('#slip').show();
             }else{
+                $('#bKash-qr').show();
                 $('#transferNumber').show();
                 $('#transactionNumber').show();
                 $('#labelChange').html('Payment Number');

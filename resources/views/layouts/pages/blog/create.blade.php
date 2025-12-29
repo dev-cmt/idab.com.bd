@@ -60,7 +60,7 @@
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">Publish Date</label>
                                         <div class="col-lg-6">
-                                            <input type="date" name="publish_date" id="publish_date" class="form-control @error('publish_date') is-invalid @enderror" value="{{ old('publish_date', $blog->publish_date) }}">
+                                            <input type="date" name="publish_date" id="publish_date" class="form-control @error('publish_date') is-invalid @enderror" value="{{ old('publish_date') }}">
                                             @error('publish_date')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

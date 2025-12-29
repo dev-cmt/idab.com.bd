@@ -9,6 +9,7 @@ use App\Models\Admin\Event;
 use App\Models\Master\MemberType;
 use App\Models\Master\CommitteeType;
 use App\Models\Admin\BlogPost;
+use App\Models\Admin\Newsletter;
 use App\Models\User;
 use DB;
 
@@ -16,7 +17,7 @@ class FrontViewController extends Controller
 {
     public function welcome()
     {
-        $user = User::where('status', 1)->get();
+        $user = User::where('status', 1)->whereNotIn('id', [1, 2])->get();
         $add_hoc = $user->where('committee_type_id', 1);
         $executive = $user->where('committee_type_id', 2);
         $event = Event::where('status', 1)->get();
@@ -147,13 +148,18 @@ class FrontViewController extends Controller
      */
     public function blogs()
     {
-        $data = BlogPost::latest()->orderByDesc('id')->take(10)->orderBy('id')->get();
+        $data = BlogPost::orderBy('publish_date', 'DESC')->paginate(10);
         return view('frontend.pages.blogs', compact('data'));
     }
     public function blogDetails($id)
     {
         $data = BlogPost::findOrFail($id);
         return view('frontend.pages.blog-details', compact('data'));
+    }
+    public function newsletter()
+    {
+        $data = Newsletter::orderBy('created_at', 'DESC')->paginate(12);
+        return view('frontend.pages.newsletters', compact('data'));
     }
     /**________________________________________________________________________________________
      * Contact Menu Pages

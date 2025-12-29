@@ -79,7 +79,7 @@
                             <h4>Discount</h4>
                             <ul>
                                 <li>Potentials rates for IDAB-organized Award, Events, Seminars, Workshops.</li>
-                                <li>Member rates for a for a wide range of products, & services with industry partners.</li>
+                                <li>Member rates for a wide range of products, & services with industry partners.</li>
                                 <li>Member rates to designer cafeterias & online store.</li>
                             </ul>
                         </div>

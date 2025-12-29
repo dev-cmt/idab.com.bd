@@ -89,9 +89,10 @@
                 </div>
                 
                 
-                <!--<div id="owl-upcoming-events" class="owl-carousel">
+                <div id="owl-upcoming-events" class="owl-carousel">
                     @foreach ($event as $item)
-                    <a href="{{route('page.events-details', $item->id)}}">
+                    <!--<a href="{{route('page.events-details', $item->id)}}">-->
+                    <a href="https://idabaward.com">
                         <div class="d-flex align-items-center justify-content-center">
                             <img src="{{asset('public/images')}}/events/{{ $item->image }}" class="img-fluid p-2" alt="">
                         </div>
@@ -100,10 +101,9 @@
                 </div>
                 
                 <div class="d-flex justify-content-center">
-                    <a href="{{Route('page.events')}}" class="btn btn-danger px-4" style="background:#EF1620;">More Events</a>
-                </div>-->
-               <a href="http://www.idabaward.com"><img src="{{asset('public/images')}}/events/cover 1_1731909143.png" class="img-fluid" alt=""></a>
-              
+                    <!--<a href="{{Route('page.events')}}" class="btn btn-danger px-4" style="background:#EF1620;">More Events</a>-->
+                    <a href="https://idabaward.com" class="btn btn-danger px-4" style="background:#EF1620;">More Events</a>
+                </div>
 
             </div>
              
@@ -244,19 +244,18 @@
 
             <div class="section-title">
                 <!--<h2 class="reveal">Frequently Asked Questions</h2>-->
-        
             </div>
 
             <div class="row">
                 <div class="col-lg-3 nav nav-pills" style="height: 380px;width: 254px;overflow: hidden;">
-                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-pane-1" type="button">
-                        <i class="bi bi-card-text me-3"></i>Student member
+                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-pane-3" type="button">
+                        <i class="bi bi-card-text me-3"></i>Professional member
                     </button>
                     <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-pane-2" type="button">
                         <i class="bi bi-card-text me-3"></i>Candidate member
                     </button>
-                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-pane-3" type="button">
-                        <i class="bi bi-card-text me-3"></i>Professional member
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-pane-1" type="button">
+                        <i class="bi bi-card-text me-3"></i>Student member
                     </button>
                     <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button">
                         <i class="bi bi-card-text me-3"></i>Associate member
@@ -267,7 +266,7 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="tab-pane-1">
+                        <div class="tab-pane fade" id="tab-pane-1">
                             <div class="row g-4">
                                 <!--<div class="col-md-6">-->
                                 <!--    <div class="position-relative h-100">-->
@@ -308,13 +307,13 @@
                                     <p><i class="bi bi-check-lg me-3"></i>Trade license/ Job Certificate</p>
                                     <p><i class="bi bi-check-lg me-3"></i>Updated TIN paper</p>
                                     <p><i class="bi bi-check-lg me-3"></i>NID</p>
-                                    <p><i class="bi bi-check-lg me-3"></i>3000/-</p>
+                                    <p><i class="bi bi-check-lg me-3"></i>2000/-</p>
                                     <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
                                 </div>
               
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="tab-pane-3">
+                        <div class="tab-pane fade show active" id="tab-pane-3">
                             <div class="row g-4">
                                 <!--<div class="col-md-6">-->
                                 <!--    <div class="position-relative h-100">-->
@@ -331,7 +330,7 @@
                                     <p><i class="bi bi-check-lg me-3"></i>Trade license/ Job Certificate with 5 years’ experience.</p>
                                     <p><i class="bi bi-check-lg me-3"></i>Updated TIN paper</p>
                                     <p><i class="bi bi-check-lg me-3"></i>NID</p>
-                                    <p><i class="bi bi-check-lg me-3"></i>3000/-</p>
+                                    <p><i class="bi bi-check-lg me-3"></i>2000/-</p>
                                     <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
                                 </div>
                               
@@ -347,7 +346,7 @@
                                 <div class="col-md-8">
                                     <h3 class="mb-4">Associate Member</h3>
                                     <h5 class="mb-4">Eligibility for Associate membership</h5>
-                                    <p>•	Must be graduation from any reputed university</p>
+                                    <p>•	The candidate must be a graduate of a reputed university</p>
                                     <p>•	Doing Interior design Business last 5 years</p>
                                     <h5>Documents</h5>
                                     <p><i class="bi bi-check-lg me-3"></i>Last Educational certificate (Any Discipline)</p>
@@ -371,7 +370,7 @@
                                 <div class="col-md-8">
                                     <h3 class="mb-4">Trade Member</h3>
                                     <h5 class="mb-4">Eligibility for Trade membership</h5>
-                                    <p>•	Must be graduation from any reputed university</p>
+                                    <p>•	The candidate must be a graduate of a reputed university</p>
                                     <p>•	Must do business as Importer, shop owner, trader on Interior design materials</p>
                                     <h5>Documents</h5>
                                     <p><i class="bi bi-check-lg me-3"></i>Last Educational certificate (Any Discipline)</p>
@@ -412,7 +411,7 @@
 
         </div>
     </section><!-- End Frequently Asked Questions Section -->
-         <!--======= Recognized Section ======= -->
+        <!--======= Recognized Section ======= -->
         <section id="clients" class="clients mt-5 animate__animated animate__fadeInUp">
             <div class="container">
                  <div class="section-title">
@@ -526,7 +525,7 @@
                         <div class="contact-phone">
                             <i class="bi bi-phone"></i>
                             <h3>Phone Number</h3>
-                            <p><a href="tel:01725151515">+88-01725151515</a></p>
+                            <p><a href="tel:+8801806428222">+880 1806 428 222</a></p>
                         </div>
                     </div>
     

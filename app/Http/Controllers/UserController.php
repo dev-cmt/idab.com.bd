@@ -52,7 +52,7 @@ class UserController extends Controller
         $customers = $data->where('is_admin', false)->count();
 
         $userData = ['customers' => $customers, 'admin' => $admin, 'inactive' => $inactiveUsers];
-        $users = User::with('roles')->get();
+        $users = User::with('roles')->orderByRaw("CASE WHEN `index` IS NULL THEN 1 ELSE 0 END, `index` ASC")->get();
 
         return view('user.index', compact(['users', 'userData']));
     }
@@ -165,55 +165,61 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, User $user)
     {
         $request->validate([
             'name' => 'required|max:80',
-            // 'email' => "required|email|unique:users,email, $user->id",
+            // 'email' => "required|email|unique:users,email,{$user->id}",
         ]);
-
-        if ($request->hasFile("profile_photo_path")) {
-            if (File::exists("public/images/profile/".$user->profile_photo_path)) {
-                File::delete("public/images/profile/".$user->profile_photo_path);
+    
+        // Handle profile photo upload
+        if ($request->hasFile('profile_photo_path')) {
+            // Delete old file if it exists
+            $oldPath = public_path('images/profile/' . $user->profile_photo_path);
+            if (File::exists($oldPath)) {
+                File::delete($oldPath);
             }
-            //get filename with extension
-            $filenamewithextension = $request->file('profile_photo_path')->getClientOriginalName();
-            //get filename without extension
-            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-            //get file extension
-            $extension = $request->file('profile_photo_path')->getClientOriginalExtension();
-            //filename to store
-            $filenametostore = $filename.'_'.time().'.'.$extension;
-            //Upload File
-            $request->file('profile_photo_path')->move('public/images/profile/', $filenametostore); //--Upload Location
-            // $request->file('profile_image')->storeAs('public/profile_images', $filenametostore);
-            //Resize image here
-            $thumbnailpath = public_path('images/profile/'.$filenametostore); //--Get File Location
-            // $thumbnailpath = public_path('storage/images/profile/'.$filenametostore);
-            $img = Image::make($thumbnailpath)->resize(1200, 850, function($constraint) {
+    
+            $file = $request->file('profile_photo_path');
+    
+            // Generate a unique filename
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $filenameToStore = $filename . '_' . time() . '.' . $extension;
+    
+            // Upload file
+            $file->move(public_path('images/profile'), $filenameToStore);
+    
+            // Resize image
+            $imagePath = public_path('images/profile/' . $filenameToStore);
+            Image::make($imagePath)->resize(1200, 850, function ($constraint) {
                 $constraint->aspectRatio();
-            }); 
-            $img->save($thumbnailpath);
-            //---Data Save
-            $user->update([
-                'profile_photo_path' => $filename,
-            ]);
+            })->save();
+    
+            // Update photo filename in DB
+            $user->profile_photo_path = $filenameToStore;
         }
-        
-        //---Data Save
-        $user->update([
-            'name' => $request->name,
-            'status' => $request->status,
-            'member_type_id' => $request->member_type_id,
-            'committee_type_id' => $request->committee_type_id,
-            'member_code' => $request->member_code,
-            'index' => $request->index,
-        ]);
+    
+        // Update other user fields
+        $user->name = $request->name;
+        $user->status = $request->status;
+        $user->member_type_id = $request->member_type_id;
+        $user->committee_type_id = $request->committee_type_id;
+        $user->committee_designation = $request->committee_designation;
+        $user->member_code = $request->member_code;
+        $user->index = $request->index;
+        $user->save();
+    
+        // Update roles
         $user->syncRoles($request->roles);
-
-        $notification=array('messege'=>'User data updated!','alert-type'=>'success');
-        return back()->with($notification);
+    
+        return back()->with([
+            'messege' => 'User data updated!',
+            'alert-type' => 'success'
+        ]);
     }
+
 
     /**
      * Remove the specified resource from storage.

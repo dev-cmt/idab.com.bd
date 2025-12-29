@@ -53,6 +53,7 @@
                                         <div class="row">
                                             <div class="col-md-12 text-center">
                                               <h4 class="animate-charcter"> Interior Designers Association Of Bangladesh</h4>
+                                              <p class="text-danger"><strong> TO License No - 1063/2024</strong></p>
                                             </div>
                                         </div>
                                     </div>

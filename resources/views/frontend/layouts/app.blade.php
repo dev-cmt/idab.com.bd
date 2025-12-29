@@ -117,22 +117,27 @@
             });
 
         });
-        $(document).ready(function() {
-            $("#owl-clients").owlCarousel({
-                items: 3,
-                navigation: false,
-            });
+       $(document).ready(function() {
+    $("#owl-clients").owlCarousel({
+        items: 3,                 // Number of items to show
+        navigation: true,         // ✅ Enable Next/Prev buttons (v1.3.3 syntax)
+        navigationText: ["<", ">"], // ✅ Custom button text/icons
+        autoPlay: true,           // Optional: Enable auto sliding
+        stopOnHover: true,        // Optional: Pause on hover
+        pagination: false         // Optional: Hide dots if you want
+    });
 
-            $('.link').on('click', function (event) {
-                var $this = $(this);
-                if ($this.hasClass('clicked')) {
-                    $this.removeAttr('style').removeClass('clicked');
-                } else {
-                    $this.css('background', '#7fc242').addClass('clicked');
-                }
-            });
+    // Optional: Click highlight functionality for elements with class .link
+    $('.link').on('click', function () {
+        var $this = $(this);
+        if ($this.hasClass('clicked')) {
+            $this.removeAttr('style').removeClass('clicked');
+        } else {
+            $this.css('background', '#7fc242').addClass('clicked');
+        }
+    });
+});
 
-        });
         $(document).ready(function() {
             $("#owl-partners").owlCarousel({
                 items: 4,

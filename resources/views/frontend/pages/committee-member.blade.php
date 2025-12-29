@@ -3,6 +3,85 @@
 @section('content')
 @include('frontend.layouts.partial.banner')
     <!-- ======= Contact Section ======= -->
+    {{--<section id="contact" class="contact">
+        <div class="container">
+
+            <!--<div class="section-title">
+                <h2 class="reveal">If You Have Any Query, Feel Free To Contact Us</h2>
+                <p>Et nemo qui impedit suscipit alias ea. Quia fugiat sitin iste officiis commodi quidem hic quas.</p>
+            </div>-->
+            <div class="row">
+                @foreach($data as $member)
+                    <div class="col-lg-4 mb-3">
+                        <div class="bg-white border text-center p-4">
+                            <div>
+                                <img src="{{ asset('public') }}/images/profile/{{$member->profile_photo_path ?? ''}}" 
+                                     class="img-fluid" 
+                                     alt="{{ $member->name }}" 
+                                     style="height: 100%">
+                            </div>
+                            <h5 class="mt-4">{{ $member->name }}</h5>
+                            <h6 class="text-danger">{{ $member->committee_designation ?? '' }}</h6>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+
+            <!--<style>-->
+            <!--    .member-card {-->
+            <!--        position: relative;-->
+            <!--        overflow: hidden;-->
+            <!--        border-radius: 10px;-->
+            <!--        transition: transform 0.3s, box-shadow 0.3s;-->
+            <!--    }-->
+            
+            <!--    .member-card:hover {-->
+            <!--        transform: translateY(-5px);-->
+            <!--        box-shadow: 0 10px 20px rgba(0,0,0,0.2);-->
+            <!--    }-->
+            
+            <!--    .member-card img {-->
+            <!--        width: 100%;-->
+            <!--        height: 250px;-->
+            <!--        object-fit: cover;-->
+            <!--        border-bottom: 1px solid #ddd;-->
+            <!--        transition: transform 0.3s;-->
+            <!--    }-->
+            
+            <!--    .member-card:hover img {-->
+            <!--        transform: scale(1.05);-->
+            <!--    }-->
+            
+            <!--    .member-card h5 {-->
+            <!--        font-size: 1.2rem;-->
+            <!--        font-weight: 600;-->
+            <!--    }-->
+            
+            <!--    .member-card h6 {-->
+            <!--        font-size: 1rem;-->
+            <!--        color: #dc3545;-->
+            <!--    }-->
+            <!--</style>-->
+            
+            <!--<div class="row">-->
+            <!--    @foreach($data as $member)-->
+            <!--        <div class="col-lg-4 col-md-6 mb-4">-->
+            <!--            <div class="bg-white member-card text-center p-3">-->
+            <!--                <img src="{{ asset('public') }}/images/profile/{{$member->profile_photo_path ?? ''}}" -->
+            <!--                     alt="{{ $member->name }}">-->
+            <!--                <h5 class="mt-3">{{ $member->name }}</h5>-->
+            <!--                <h6>{{ $member->designation }}</h6>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--    @endforeach-->
+            <!--</div>-->
+
+        </div>
+    </section><!-- End Contact Section -->--}}
+    
+    
+    <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
         <div class="container">
 
@@ -28,7 +107,7 @@
                             <img src="{{asset('public/images')}}/member-pic/Saron.jpeg" class="img-fluid" alt="" style="height: 100%">
                         </div>
                         <h5 class="mt-4">IDr. Md Saiful Islam Saron</h4>
-                       <h6 class="text-danger">First Vice President</h6>
+                       <h6 class="text-danger">Senior Vice President</h6>
                         
                     </div>
                 </div>

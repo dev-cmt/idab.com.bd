@@ -26,7 +26,7 @@
                     <div class="contact-phone">
                         <i class="bi bi-phone"></i>
                         <h3>Phone Number</h3>
-                        <p><a href="tel:01725151515">+88-01725151515</a></p>
+                        <p><a href="tel:+8801806428222">+880 1806 428 222</a></p>
                     </div>
                 </div>
 

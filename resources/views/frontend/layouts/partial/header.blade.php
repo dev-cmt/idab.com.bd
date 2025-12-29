@@ -46,7 +46,7 @@
                 </li>
                 <!--<li><a class="nav-link scrollto {{ (Route::currentRouteName() == 'page.why-be-member') ? 'active' : '' }}" href="{{Route('page.why-be-member')}}">Why be a Member</a></li>-->
                 <!--<li><a class="nav-link scrollto {{ (Route::currentRouteName() == 'page.requirements') ? 'active' : '' }}" href="{{Route('page.requirements')}}">Requirements</a></li>-->
-                <li><a class="nav-link scrollto {{ (Route::currentRouteName() == 'page.gallery-cover') ? 'active' : '' }}" href="{{Route('page.gallery-cover')}}">Gallery</a></li>
+                <!--<li><a class="nav-link scrollto {{ (Route::currentRouteName() == 'page.gallery-cover') ? 'active' : '' }}" href="{{Route('page.gallery-cover')}}">Gallery</a></li>-->
                 <li><a class="nav-link scrollto {{ (Route::currentRouteName() == 'page.events') ? 'active' : '' }}" href="{{Route('page.events')}}">Events</a></li>
                 <li><a class="nav-link scrollto {{ (Route::currentRouteName() == 'page.corporate-partners') ? 'active' : '' }}" href="{{Route('page.corporate-partners')}}">Job Apply</a></li>
                 <li><a class="nav-link scrollto {{ (Route::currentRouteName() == 'page.blogs') ? 'active' : '' }}" href="{{Route('page.blogs')}}">News</a></li>

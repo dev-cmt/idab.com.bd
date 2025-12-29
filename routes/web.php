@@ -15,11 +15,13 @@ use App\Http\Controllers\Master\MemberTypeController;
 use App\Http\Controllers\Master\QualificationController;
 
 
+
 use App\Http\Controllers\Admin\CommitteeController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\LoseMemberController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\EventPaymentController;
 
 /*
@@ -68,6 +70,8 @@ Route::get('page/corporate-partners', [FrontViewController::class, 'corporatePar
 //______________ BLOGS
 Route::get('page/blogs', [FrontViewController::class, 'blogs'])->name('page.blogs');
 Route::get('page/news-content-details/{id}', [FrontViewController::class, 'blogDetails'])->name('page.blog-details');
+Route::get('page/newsletters', [FrontViewController::class, 'newsletter'])->name('page.newsletters');
+Route::get('/download-newsletter/{id}', [NewsletterController::class, 'downloadNewsletter'])->name('newsletter.download');
 //______________ CONTACT US
 Route::get('pages/contact-us', [FrontViewController::class, 'contact'])->name('page.contact-us');
 Route::post('contact-us/store', [ContactController::class,'contactStore'])->name('contact-us.store');
@@ -76,6 +80,7 @@ Route::get('pages/terms-condition', [FrontViewController::class, 'termsCondition
 Route::get('pages/privacy-policy', [FrontViewController::class,'privacyPolicy'])->name('page.privacy-policy');
 
 
+Route::get('download/member-list/download-csv', [MemberController::class, 'downloadMemberListCSV'])->name('member-csv.download');
 
 /**______________________________________________________________________________________________
  * Login Check => Dashboard
@@ -135,6 +140,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::PATCH('member-approve/{id}/cancel', [MemberController::class, 'approveCancel'])->name('member-approve.cancel');
 
     Route::get('download/member-documents/{id}/download-ZipFile', [MemberController::class, 'downloadZipFile'])->name('member-document.downloadZipFile');
+
 
     Route::get('download/member-documents/{id}/trade_licence', [MemberController::class, 'downloadTradeLicence'])->name('document-trade-licence.download');
     Route::get('download/member-documents/{id}/tin_certificate', [MemberController::class, 'downloadTinCertificate'])->name('document-tin-certificate.download');
@@ -227,6 +233,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::delete('blog-news/delete/{id}', [BlogController::class,'destroy'])->name('blog.delete');
     //-- CONTACT
     Route::resource('blog', BlogController::class);
+    Route::resource('newsletters', NewsletterController::class);
     //-- CONTACT
     Route::get('contact-us/index', [ContactController::class,'contactIndex'])->name('contact-us.index');
     Route::get('contact-us/{id}/reply', [ContactController::class,'contactReply'])->name('contact-us.reply');

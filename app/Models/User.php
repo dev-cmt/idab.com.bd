@@ -44,6 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_path',
         'member_type_id',
         'committee_type_id',
+        'committee_designation',
         'email_verified_at',
         'status',
         'is_admin',
@@ -93,7 +94,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function paymentDetails()
     {
-        return $this->hasOne(PaymentDetails::class, 'member_id');
+        return $this->hasMany(PaymentDetails::class, 'member_id');
     }
     
 

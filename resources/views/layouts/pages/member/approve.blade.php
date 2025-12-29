@@ -34,7 +34,7 @@
                                         <strong>Number: </strong>{{ $row->infoPersonal->contact_number ?? 'null' }}<br>
                                     </td>
                                     <td>
-                                        <a href="{{ route('member-document.downloadZipFile', $row->id) }}" target="_blank" class="btn btn-sm btn-secondary p-1 px-2 m-1">
+                                        <a href="{{ route('member-document.downloadZipFile', $row->id) }}" class="btn btn-sm btn-secondary p-1 px-2 m-1">
                                             <i class="flaticon-381-download"></i><span class="btn-icon-add"></span> Zip
                                         </a>
 
@@ -107,7 +107,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('transaction-registation-approve.index') }}">
-                                            @if (optional($row->paymentDetails)->status == 1)
+                                            @if (optional($row->paymentDetails->first())->status == 1)
                                                 <span class="badge light badge-success">
                                                     <i class="fa fa-circle text-success mr-1"></i> Payment
                                                 </span>
@@ -120,7 +120,7 @@
                                     <td>
                                         <div class="d-flex justify-content-end align-items-center">
                                             <form action="{{ route('member-approve.update', $row->id) }}" method="post">
-                                            <button class="btn btn-sm btn-info p-1 m-1" {{ optional($row->paymentDetails)->status != 1 ? 'disabled' : '' }}>Approve</button>
+                                            <button class="btn btn-sm btn-info p-1 m-1" {{ optional($row->paymentDetails->first())->status != 1 ? 'disabled' : '' }}>Approve</button>
                                                 @csrf
                                                 @method('PATCH')
                                             </form>

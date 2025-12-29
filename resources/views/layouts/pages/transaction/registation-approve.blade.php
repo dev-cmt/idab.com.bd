@@ -85,9 +85,11 @@
                                     <td>{{date("j F, Y", strtotime($row->payment_date))}}</td>
                                     <td>{{$row->paid_amount}}</td>
                                     <td>
+                                        @if($row->slip)
                                         <a href="{{ route('transaction-document.download', $row->id) }}" target="_blank" class="btn btn-sm btn-secondary p-1 px-2 mr-1">
                                             <span class="flaticon-381-download"></span>
                                         </a>
+                                        @endif
                                     </td>
                                     @can('Membership fees approved')
                                     <td class="d-flex justify-content-end">
@@ -144,7 +146,7 @@
                                     <td><strong>Number: </strong>{{$row->payment_number}} <br> <strong>Method: </strong>{{$row->paymentMethod->name}}</td>
                                     <td><strong>Date: </strong>{{date("j F, Y", strtotime($row->payment_date))}}<br> <strong>Amount: </strong>{{$row->paid_amount}}</td>
                                     <td>
-                                        <a href="{{route('profile_show', $row->approveBy->id)}}" class="btn btn-sm btn-secondary p-1 px-2">{{$row->approveBy->name ?? 'null'}}</i></a>
+                                        <a href="{{route('profile_show', $row->approveBy->id )}}" class="btn btn-sm btn-secondary p-1 px-2">{{$row->approveBy->name ?? 'null'}}</i></a>
                                     </td>
                                     <td>@if($row->status == 1)
                                         <span class="badge light badge-success">

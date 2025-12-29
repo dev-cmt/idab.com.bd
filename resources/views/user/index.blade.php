@@ -15,11 +15,12 @@
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>User Name</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
                                     <th>Role</th>
                                     <th>Member Type</th>
                                     <th>Member Code</th>
-                                    <th>Created</th>
+                                    <th>Index</th>
                                     <th>Status</th>
                                     <th class="text-right pr-4">Action</th>
                                 </tr>
@@ -30,6 +31,7 @@
                                 <tr>
                                     <td><img class="img-fluid" src="{{asset('public')}}/images/profile/{{ $user->profile_photo_path }}" width="40" height="40" alt=""></td>
                                     <td>{{ $user->name }}<br><a href="mailto:<nowiki>{{ $user->email}}">{{ $user->email }}</a></td>
+                                    <td>{{ $user->infoPersonal->contact_number ?? '' }}</td>
                                     <td>
                                         @foreach($user->roles as $role)
                                             <span class="">{{ $role->name }}</span>
@@ -38,7 +40,8 @@
                                     <td>{{ $user->memberType->name ?? 'Null'}}</td>
                                     <td>{{ $user->member_code}}</td>
                                     <td>
-                                        {{ $user->created_at->diffForHumans() }}
+                                        {{-- $user->created_at->diffForHumans() --}}
+                                        {{ $user->index }}
                                     </td>
                                     <td>
                                         <div class="flex items-center">

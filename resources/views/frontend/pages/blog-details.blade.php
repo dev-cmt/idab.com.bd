@@ -30,7 +30,7 @@
 
                 <hr>
                 <div class="text-end">
-                    Published: <span class="date"><i class="fa fa-clock-o"></i>{{ $data->publish_date->format('d F Y') }}</span>
+                    Published: <span class="date"><i class="fa fa-clock-o"></i> {{ $data->publish_date ? \Carbon\Carbon::parse($data->publish_date)->format('d M Y') : 'Not Published' }}</span>
                 </div>
             </div>
 

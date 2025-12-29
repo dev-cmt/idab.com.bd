@@ -28,6 +28,10 @@
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row g-5">
+                <div class="col-12">
+                    <h4><a href="{{route('page.newsletters')}}">Newsletter <i class="bi bi-arrow-right"></i></a></h4>
+                </div>
+                
                 <!-- Blog list Start -->
                 <div class="col-lg-8">
                     <div class="row g-5">
@@ -53,6 +57,9 @@
                             </div>
                         @endforeach
                             
+                    </div>
+                    <div class="pagination">
+                        {{ $data->render('vendor.pagination.custom') }}
                     </div>
                 </div>
                 <!-- Blog list End -->

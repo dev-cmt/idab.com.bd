@@ -278,7 +278,7 @@ class MemberController extends Controller
             // Log in the created user
             Auth::login($user);
             // Send email verification
-            $user->sendEmailVerificationNotification();
+            // $user->sendEmailVerificationNotification();
             
             // Commit the transaction if everything is successful
             DB::commit();
@@ -304,6 +304,7 @@ class MemberController extends Controller
         }
         
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -342,13 +343,13 @@ class MemberController extends Controller
         $user->save();
         $user->assignRole('Member');
         
-        $mailData =[
-            'title' => 'Now Your Are Member Of IDAB',
-            'body' => 'This Is body',
-        ];
-        Mail::to($user->email)->send(new MemberApproved($mailData));
-
-        $notification=array('messege'=>'Approve successfully!','alert-type'=>'success');
+        // $mailData =[
+        //     'title' => 'Now Your Are Member Of IDAB',
+        //     'body' => 'This Is body',
+        // ];
+        // Mail::to($user->email)->send(new MemberApproved($mailData));
+        // $notification=array('messege'=>'Approve successfully!','alert-type'=>'success');
+        
         return redirect()->back()->with($notification);
     }
     public function approveCancel($id){
@@ -363,6 +364,93 @@ class MemberController extends Controller
     {
         return view('waiting');
     }
+    /**___________________________________________________________________________________
+     * DOWNLOAD CSV Member List
+     * ___________________________________________________________________________________
+     */
+    public function downloadMemberListCSV()
+    {
+        $users = User::where('users.status', true)
+            ->whereNotIn('users.id', [1, 2])
+            ->leftJoin('info_personals', 'users.id', '=', 'info_personals.member_id')
+            ->leftJoin('info_companies', 'users.id', '=', 'info_companies.member_id')
+            ->leftJoin('member_types', 'users.member_type_id', '=', 'member_types.id')
+            ->leftJoin('payment_details', function($join) {
+                $join->on('users.id', '=', 'payment_details.member_id')
+                    ->where('payment_details.payment_reason_id', 1)
+                    ->whereRaw('payment_details.created_at = (
+                        SELECT MAX(pd.created_at) 
+                        FROM payment_details pd 
+                        WHERE pd.member_id = users.id 
+                        AND pd.payment_reason_id = 1
+                    )');
+            })
+            ->select(
+                'users.*',
+                'info_personals.contact_number',
+                'info_companies.address',
+                'member_types.name as member_type_name',
+                'payment_details.payment_date',
+                'payment_details.paid_amount'
+            )
+            ->orderBy('users.name', 'asc')
+            ->get();
+    
+        // Filter duplicates by name, keep latest payment_date
+        $uniqueUsers = $users->groupBy('name')->map(function($group) {
+            return $group->sortByDesc('payment_date')->first();
+        })->values();
+    
+        $filename = "members_" . now()->format('Ymd_His') . ".csv";
+        $headers = [
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$filename",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        ];
+    
+        $columns = [
+            'Serial No',
+            'Membership No',
+            'Name',
+            'Email Id',
+            'Mobile No',
+            'Office Address',
+            'Last Payment Date',
+            'Last Payment Amount',
+            'Member Type',
+            'Remarks'
+        ];
+    
+        $callback = function () use ($uniqueUsers, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+    
+            $serial = 1;
+            foreach ($uniqueUsers as $user) {
+                fputcsv($file, [
+                    $serial++,
+                    $user->member_code ?? '',
+                    $user->name ?? '',
+                    $user->email ?? '',
+                    $user->contact_number ?? '',
+                    $user->address ?? '',
+                    $user->payment_date ? date('Y-m-d', strtotime($user->payment_date)) : '',
+                    $user->paid_amount ?? '',
+                    $user->member_type_name ?? '',
+                    $user->remarks ?? '',
+                ]);
+            }
+    
+            fclose($file);
+        };
+    
+        return response()->stream($callback, 200, $headers);
+    }
+
+
+    
     /**___________________________________________________________________________________
      * DOWNLOAD DOCUMENT
      * ___________________________________________________________________________________
