@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
@@ -22,6 +23,7 @@ use App\Models\Master\MastQualification;
 use App\Models\Master\MemberType;
 use App\Models\Payment\PaymentDetails;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\Helper;
 use App\Mail\MemberApproved;
 use Illuminate\Support\Facades\Mail;
@@ -287,7 +289,7 @@ class MemberController extends Controller
             return response()->json(['user' => $user], 200);
         } catch (\Exception $e) {
             DB::rollback();
-            \Log::error('Error: ' . $e->getMessage());
+            Log::error('Error: ' . $e->getMessage());
             // Depending on the type of exception, handle accordingly
             if ($e instanceof PostTooLargeException) {
                 return response()->json([
@@ -348,7 +350,7 @@ class MemberController extends Controller
         //     'body' => 'This Is body',
         // ];
         // Mail::to($user->email)->send(new MemberApproved($mailData));
-        // $notification=array('messege'=>'Approve successfully!','alert-type'=>'success');
+        $notification=array('messege'=>'Approve successfully!','alert-type'=>'success');
         
         return redirect()->back()->with($notification);
     }
@@ -364,6 +366,28 @@ class MemberController extends Controller
     {
         return view('waiting');
     }
+    /**___________________________________________________________________________________
+     * DOWNLOAD CERTIFICATE
+     * ___________________________________________________________________________________
+     */
+
+    public function certificateDownload(User $user)
+    {
+        // Optional security
+        // if (auth()->id() !== $user->id) abort(403);
+
+        $data = [
+            'user' => $user,
+            'certificate_no' => 'CERT-' . str_pad($user->id, 6, '0', STR_PAD_LEFT),
+            'issue_date' => now()->format('d M Y'),
+        ];
+
+        $pdf = Pdf::loadView('layouts.pages.member.certificate-download', $data)
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('certificate_' . $user->id . '.pdf');
+    }
+
     /**___________________________________________________________________________________
      * DOWNLOAD CSV Member List
      * ___________________________________________________________________________________

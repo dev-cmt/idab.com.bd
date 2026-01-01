@@ -17,6 +17,7 @@
                                 <th>Phone Number</th>
                                 <th>Member Type</th>
                                 @canany('Super-Admin')
+                                <th>Certificate</th>
                                 <th>Approve By</th>
                                 @endcanany
                                 @canany('Member','Member edit', 'Member view', 'Member delete')
@@ -32,9 +33,14 @@
                                     <td>{{$row->email}}</td>
                                     <td>{{ $row->infoPersonal->contact_number ?? 'null' }}</td>
                                     <td>{{$row->memberType->name ?? 'null'}}</td>
+                                    <td>
+                                        <a href="{{ route('member-certificate.download', $row->id) }}" class="btn btn-sm btn-secondary p-1 px-2 m-1">
+                                            <i class="flaticon-381-download"></i><span class="btn-icon-add"></span> Dwonload
+                                        </a>
+                                    </td>
                                     @canany('Super-Admin')
                                     <td>
-                                        <button class="btn btn-sm btn-secondary p-1 px-2">{{$row->parentUser->name ?? 'null'}}</i></button>
+                                        <button class="badge light badge-info">{{$row->parentUser->name ?? 'null'}}</i></button>
                                     </td>
                                     @endcanany
                                     <td class="text-right">

@@ -140,7 +140,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::PATCH('member-approve/{id}/cancel', [MemberController::class, 'approveCancel'])->name('member-approve.cancel');
 
     Route::get('download/member-documents/{id}/download-ZipFile', [MemberController::class, 'downloadZipFile'])->name('member-document.downloadZipFile');
-
+    Route::get('download/member-certificate/{user}', [MemberController::class, 'certificateDownload'])->name('member-certificate.download');
 
     Route::get('download/member-documents/{id}/trade_licence', [MemberController::class, 'downloadTradeLicence'])->name('document-trade-licence.download');
     Route::get('download/member-documents/{id}/tin_certificate', [MemberController::class, 'downloadTinCertificate'])->name('document-tin-certificate.download');
@@ -267,16 +267,16 @@ Route::group(['middleware' => ['auth']], function(){
 });
 
 /*___________ Subscription Information __________*/
-Route::group(['middleware' => ['auth']], function(){
-    Route::resource('subscription', SubscriptionController::class);
-});
-Route::get ('/subscription_approve_list', [SubscriptionController::class,'subscription_approve_list'])->name('subscription_approve_list');
-Route::patch ('/subscription_approve/{id}', [SubscriptionController::class,'subscription_approve'])->name('subscription_approve.update');
-Route::patch ('/subscription_cancel/{id}', [SubscriptionController::class,'subscription_cancel'])->name('subscription_cancel.update');
-/*___________ Lose Member __________*/
-Route::group(['middleware' => ['auth']], function(){
-    Route::resource('lose_member', LoseMemberController::class);
-});
+// Route::group(['middleware' => ['auth']], function(){
+//     Route::resource('subscription', SubscriptionController::class);
+// });
+// Route::get ('/subscription_approve_list', [SubscriptionController::class,'subscription_approve_list'])->name('subscription_approve_list');
+// Route::patch ('/subscription_approve/{id}', [SubscriptionController::class,'subscription_approve'])->name('subscription_approve.update');
+// Route::patch ('/subscription_cancel/{id}', [SubscriptionController::class,'subscription_cancel'])->name('subscription_cancel.update');
+// /*___________ Lose Member __________*/
+// Route::group(['middleware' => ['auth']], function(){
+//     Route::resource('lose_member', LoseMemberController::class);
+// });
 /*___________ Event Information __________*/
 // Route::group(['middleware' => ['auth']], function(){
 //     Route::resource('event', EventController::class);
