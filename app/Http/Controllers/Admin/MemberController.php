@@ -373,9 +373,6 @@ class MemberController extends Controller
 
     public function certificateDownload(User $user)
     {
-        // Optional security
-        // if (auth()->id() !== $user->id) abort(403);
-
         $data = [
             'user' => $user,
             'certificate_no' => 'CERT-' . str_pad($user->id, 6, '0', STR_PAD_LEFT),
@@ -385,7 +382,9 @@ class MemberController extends Controller
         $pdf = Pdf::loadView('layouts.pages.member.certificate-download', $data)
             ->setPaper('a4', 'portrait');
 
-        return $pdf->download('certificate_' . $user->id . '.pdf');
+        return $pdf->download('certificate_' . $user->id . '_' . date('Y') . '.pdf');
+        
+        // return view('layouts.pages.member.certificate-download', $data);
     }
 
     /**___________________________________________________________________________________

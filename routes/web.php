@@ -13,9 +13,6 @@ use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Master\CommitteeTypeController;
 use App\Http\Controllers\Master\MemberTypeController;
 use App\Http\Controllers\Master\QualificationController;
-
-
-
 use App\Http\Controllers\Admin\CommitteeController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\LoseMemberController;
@@ -239,17 +236,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('contact-us/{id}/reply', [ContactController::class,'contactReply'])->name('contact-us.reply');
     Route::get('contact-us/{id}/delete', [ContactController::class,'contactDelete'])->name('contact-us.delete');
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
 //---Website View

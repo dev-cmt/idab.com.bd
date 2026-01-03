@@ -35,6 +35,196 @@
             </div><!-- /.container -->
         </section>
         <!-- End Feature -->
+        
+        <!-- ================= CUSTOM CSS ================= -->
+        <style>
+            /* ===== TITLE ===== */
+            .newsletter-title h1 {
+                font-size: 42px;
+                font-weight: 700;
+                line-height: 1.3;
+            }
+
+            .newsletter-title span {
+                color: #e30613;
+            }
+
+            .newsletter-title p {
+                font-size: 16px;
+                color: #444;
+                margin-top: 8px;
+            }
+
+            /* ===== FIXED HEIGHT RESPONSIVE SLIDER ===== */
+            .newsletter-slider,
+            .newsletter-slider .owl-stage-outer,
+            .newsletter-slider .owl-stage,
+            .newsletter-slider .owl-item {
+                height: 480px;
+            }
+
+            .newsletter-slider .item,
+            .newsletter-slider .slide-img {
+                height: 480px;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .newsletter-slider .slide-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            @media (max-width: 991px) {
+                .newsletter-slider,
+                .newsletter-slider .owl-stage-outer,
+                .newsletter-slider .owl-stage,
+                .newsletter-slider .owl-item,
+                .newsletter-slider .item,
+                .newsletter-slider .slide-img {
+                    height: 360px;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .newsletter-slider,
+                .newsletter-slider .owl-stage-outer,
+                .newsletter-slider .owl-stage,
+                .newsletter-slider .owl-item,
+                .newsletter-slider .item,
+                .newsletter-slider .slide-img {
+                    height: 280px;
+                }
+            }
+
+            /* ===== RIGHT BOXES ===== */
+            .news-box {
+                height: 240px;
+                padding: 30px;
+                color: #fff;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .news-red {
+                background: #e30613;
+            }
+
+            .news-black {
+                background: #000;
+            }
+
+            .news-box h5 {
+                font-weight: 600;
+            }
+
+            .news-box p {
+                font-size: 14px;
+                margin-top: 10px;
+            }
+
+            .news-box a {
+                color: #fff;
+                font-size: 22px;
+                text-decoration: none;
+            }
+
+            /* ===== OWL NAV (BOOTSTRAP ICONS) ===== */
+            .newsletter-section .owl-nav {
+                position: absolute;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 14px;
+            }
+
+            .newsletter-section .owl-nav button {
+                width: 42px;
+                height: 42px;
+                background: #e30613 !important;
+                border-radius: 50%;
+                color: #fff !important;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .newsletter-section .owl-nav button:hover {
+                background: #c00010 !important;
+            }
+
+            /* DOTS */
+            .newsletter-section .owl-dots {
+                position: absolute;
+                bottom: 32px;
+                left: 25px;
+            }
+
+            .newsletter-section .owl-dot span {
+                background: #ccc !important;
+            }
+
+            .newsletter-section .owl-dot.active span {
+                background: #e30613 !important;
+            }
+        </style>
+
+        <!-- ================= NEWSLETTER SECTION ================= -->
+        <section class="newsletter-section py-5">
+            <div class="container">
+
+                <!-- Title -->
+                <div class="newsletter-title mb-4">
+                    <h1>The Institute of <span>Architects</span> Bangladesh</h1>
+                    <p>is a professional organization for architects in Bangladesh</p>
+                </div>
+
+                <div class="row g-0">
+
+                    <!-- SLIDER -->
+                    <div class="col-lg-9 position-relative">
+                        <div class="owl-carousel newsletter-slider">
+                            @foreach ($blog_post as $item)
+                                <div class="item">
+                                    <div class="slide-img">
+                                        <img src="{{ asset('public/'.$item->image_path) }}" alt="">
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- RIGHT BOXES -->
+                    <div class="col-lg-3">
+                        <div class="news-box news-red">
+                            <div>
+                                <h5>Competition / Awards</h5>
+                                <p>Open Architectural Design Competition for the Design of Ten Storied...</p>
+                            </div>
+                            <a href="#"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+
+                        <div class="news-box news-black">
+                            <div>
+                                <h5>Seminar / Workshop</h5>
+                                <p>বার্ষিক সদস্যপদ পরীক্ষা সংক্রান্ত বিজ্ঞপ্তি</p>
+                            </div>
+                            <a href="#"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- ================= END NEWSLETTER SECTION ================= -->
+
+
+
 
         <!-- ======= About Section ======= -->
          <!--<section id="about" class="about">
@@ -610,5 +800,26 @@
             })
         </script>
     @endif
+
+
+@endsection
+
+@section('script')
+    <!-- ================= OWL INIT ================= -->
+    <script>
+        $('.newsletter-slider').owlCarousel({
+            items: 1,
+            loop: true,
+            nav: true,
+            dots: true,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            navText: [
+                '<i class="bi bi-chevron-left"></i>',
+                '<i class="bi bi-chevron-right"></i>'
+            ]
+        });
+    </script>
+
 @endsection
 

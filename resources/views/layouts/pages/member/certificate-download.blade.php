@@ -2,247 +2,144 @@
 <html>
 <head>
     <meta charset="utf-8">
-
     <style>
         @page {
             size: A4 portrait;
             margin: 0;
         }
-
+        
         body {
-            font-family: "Times New Roman", serif;
+            font-family: "serif"; /* PDF engines prefer generic serif for Times New Roman */
             margin: 0;
             padding: 0;
-            background: #ffffff;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        /* Outer gray border */
-        .outer-border {
             width: 210mm;
             height: 297mm;
-            border: 12px solid #eeeeee;
-            padding: 12mm;
         }
 
-        /* Inner black border */
+        /* The fix for the background image */
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 210mm;
+            height: 297mm;
+            z-index: -1;
+        }
+        
+        .certificate-container {
+            width: 210mm;
+            height: 297mm;
+            position: relative;
+        }
+        
+        
         .inner-border {
-            width: 100%;
-            height: 100%;
-            border: 2px solid #000000;
-            padding: 10mm;
+            position: absolute;
+            top: 25mm;
+            left: 25mm;
+            right: 25mm;
+            bottom: 25mm;
+            text-align: center;
+            /* border: 2px solid #000000; */
         }
-
-        /* Logo */
-        .logo {
-            font-size: 46pt;
-            font-weight: bold;
-            letter-spacing: 4pt;
+        
+        /* Content layout */
+        .content {
+            margin-top: 40mm;
         }
-
-        .logo-red {
-            color: #b00000;
-        }
-
-        .association {
-            font-size: 12pt;
-            letter-spacing: 4pt;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #333;
-        }
-
+        
         .certify-text {
-            font-size: 16pt;
+            font-size: 18pt;
+            font-style: italic;
+            margin-bottom: 10mm;
         }
-
+        
         .member-name {
-            font-size: 28pt;
+            font-size: 32pt;
             font-weight: bold;
-            text-decoration: underline;
+            color: #1a1a1a;
+            margin: 5mm 0;
+            border-bottom: 2px solid #333;
+            display: inline-block;
+            padding: 0 20px;
         }
-
+        
         .member-type {
-            font-size: 20pt;
+            font-size: 22pt;
             font-weight: bold;
-            letter-spacing: 1pt;
+            letter-spacing: 2px;
+            margin: 15mm 0;
+            color: #8b0000; /* Deep red for emphasis */
+        }
+        
+        .body-text {
+            font-size: 14pt;
+            line-height: 1.8;
+            padding: 0 20mm;
         }
 
-        .text {
-            font-size: 13pt;
-            line-height: 1.6;
-        }
-
-        .membership-label {
-            font-size: 10pt;
-            letter-spacing: 1px;
-            font-weight: bold;
-            color: #555;
+        .membership-section {
+            margin-top: 20mm;
         }
 
         .membership-number {
-            font-size: 22pt;
+            font-size: 20pt;
             font-weight: bold;
-            color: #8b0000;
+            margin-top: 5mm;
+        }
+        
+        /* Signature Section */
+        .footer-section {
+            position: absolute;
+            bottom: 40mm;
+            width: 100%;
+        }
+
+        .signature-box {
+            width: 200px;
+            margin: 0 auto;
+            border-top: 1px solid #000;
+            padding-top: 5px;
         }
 
         .signature-name {
             font-size: 14pt;
             font-weight: bold;
         }
-
-        .signature-title {
-            font-size: 11pt;
-            color: #555;
-        }
-
-        .footer {
-            font-size: 9pt;
-            color: #555;
-        }
-
-        .spacer {
-            height: 20px;
-        }
     </style>
 </head>
 
 <body>
+    <img src="{{ asset('public/images/certificate.jpg') }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
 
-<table class="outer-border">
-    <tr>
-        <td>
-            <table class="inner-border">
-                <tr>
-                    <td>
+    <div class="certificate-container">
+        
+        <div class="inner-border">
+            <div class="content">
+                <div class="certify-text">This is to certify that</div>
+                
+                <div class="member-name">{{ $user->name }}</div>
+                
+                <div class="member-type">PROFESSIONAL MEMBER</div>
+                
+                <div class="body-text">
+                    of <strong>Interior Designers Association of Bangladesh</strong><br>
+                    for the period from<br>
+                    <strong>January 01, {{ date('Y') }}</strong> to 
+                    <strong>December 31, {{ date('Y') }}</strong>
+                </div>
 
-                        <table>
+                <div class="body-text" style="margin-top: 10mm;">
+                    The holder of this certificate accepts the privilege and responsibility of<br>
+                    <strong>Certified Interior Designer</strong>
+                </div>
 
-                            <!-- LOGO -->
-                            <tr>
-                                <td align="center">
-                                    <div class="logo">
-                                        ID<span class="logo-red">AB</span>
-                                    </div>
-                                    <div class="association">
-                                        Interior Designers Association of Bangladesh
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr><td class="spacer"></td></tr>
-
-                            <!-- CERTIFY -->
-                            <tr>
-                                <td align="center" class="certify-text">
-                                    This is to certify that
-                                </td>
-                            </tr>
-
-                            <tr><td class="spacer"></td></tr>
-
-                            <!-- NAME -->
-                            <tr>
-                                <td align="center">
-                                    <div class="member-name">{{ $user->name }}</div>
-                                </td>
-                            </tr>
-
-                            <tr><td class="spacer"></td></tr>
-
-                            <!-- MEMBER TYPE -->
-                            <tr>
-                                <td align="center" class="member-type">
-                                    PROFESSIONAL MEMBER
-                                </td>
-                            </tr>
-
-                            <tr><td class="spacer"></td></tr>
-
-                            <!-- BODY TEXT -->
-                            <tr>
-                                <td align="center" class="text">
-                                    of Interior Designers Association of Bangladesh<br><br>
-                                    for the period from<br>
-                                    <strong>January 01 {{ date('Y') }}</strong> to
-                                    <strong>December 31 {{ date('Y') }}</strong>
-                                </td>
-                            </tr>
-
-                            <tr><td class="spacer"></td></tr>
-
-                            <!-- DESCRIPTION -->
-                            <tr>
-                                <td align="center" class="text">
-                                    The holder of this certificate accepts the privilege and responsibility of
-                                    <strong>Certified Interior Designer</strong> by<br>
-                                    <strong>Interior Designers Association of Bangladesh</strong>
-                                </td>
-                            </tr>
-
-                            <tr><td class="spacer"></td></tr>
-
-                            <!-- MEMBERSHIP -->
-                            <tr>
-                                <td align="center">
-                                    <div class="membership-label">MEMBERSHIP NUMBER</div>
-                                    <div class="membership-number">{{ $certificate_no }}</div>
-                                </td>
-                            </tr>
-
-                            <tr><td class="spacer"></td></tr>
-
-                            <!-- SIGNATURE -->
-                            <tr>
-                                <td>
-                                    <table width="100%">
-                                        <tr>
-                                            <td width="50%" valign="bottom">
-                                                <div class="signature-name">
-                                                    Syed Quamrul Ahsan
-                                                </div>
-                                                <div class="signature-title">
-                                                    President
-                                                </div>
-                                            </td>
-
-                                            <td width="50%" align="right" valign="bottom">
-                                                <strong>
-                                                    INTERIOR DESIGNERS<br>
-                                                    ASSOCIATION OF BANGLADESH
-                                                </strong><br>
-                                                <span class="footer">
-                                                    www.idab.com.bd
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-
-                            <tr><td class="spacer"></td></tr>
-
-                            <!-- FOOTER -->
-                            <tr>
-                                <td align="center" class="footer">
-                                    This certificate remains the property of IDAB<br>
-                                    Visit to verify this membership<br>
-                                    www.idab.com.bd
-                                </td>
-                            </tr>
-
-                        </table>
-
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
-
+                <div class="membership-section">
+                    <div style="font-size: 10pt; letter-spacing: 1px;">MEMBERSHIP NUMBER</div>
+                    <div class="membership-number">{{ $certificate_no }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
