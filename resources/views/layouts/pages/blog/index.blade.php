@@ -19,6 +19,7 @@
                                     <th class="px-4 py-2">Author</th>
                                     <th class="px-4 py-2">Publish</th>
                                     <th class="px-4 py-2">Status</th>
+                                    <th class="px-4 py-2">Home</th>
                                     <th class="px-4 py-2">Actions</th>
                                 </tr>
                             </thead>
@@ -34,6 +35,15 @@
                                         @else
                                             <span class="badge light badge-info"><i class="fa fa-circle text-info mr-1"></i>{{ ucfirst($row->status) }}</span>
                                         @endif 
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <form action="{{ route('blog.toggleHome', $row->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-xs {{ $row->is_home ? 'btn-success' : 'btn-secondary' }}">
+                                                {{ $row->is_home ? 'ON' : 'OFF' }}
+                                            </button>
+                                        </form>
                                     </td>
                                     <td class="px-4 py-2">
                                         <a href="{{ route('blog.edit', $row->id) }}" class="btn btn-success shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>

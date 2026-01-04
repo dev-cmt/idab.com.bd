@@ -2,21 +2,35 @@
 <html>
 <head>
     <meta charset="utf-8">
+          
     <style>
+        @font-face {
+            font-family: 'Godawn';
+            src: url('{{ asset("public/Godawn-Regular.ttf") }}') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'The Great Kingdom';
+            src: url('{{ asset("public/The-Great-Kingdom.otf") }}') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         @page {
             size: A4 portrait;
             margin: 0;
         }
         
         body {
-            font-family: "serif"; /* PDF engines prefer generic serif for Times New Roman */
+            font-family: "sans-serif", Arial, Helvetica;
             margin: 0;
             padding: 0;
             width: 210mm;
             height: 297mm;
+            color: #1a1a1a;
         }
 
-        /* The fix for the background image */
         .background-image {
             position: absolute;
             top: 0;
@@ -32,114 +46,124 @@
             position: relative;
         }
         
-        
-        .inner-border {
+        .content-wrapper {
             position: absolute;
-            top: 25mm;
-            left: 25mm;
-            right: 25mm;
-            bottom: 25mm;
+            top: 295px;
+            width: 100%;
             text-align: center;
-            /* border: 2px solid #000000; */
-        }
-        
-        /* Content layout */
-        .content {
-            margin-top: 40mm;
         }
         
         .certify-text {
             font-size: 18pt;
-            font-style: italic;
-            margin-bottom: 10mm;
+            color: #444;
+
         }
         
         .member-name {
-            font-size: 32pt;
+            /* font-family: 'Godawn', sans-serif; */
+            font-family: 'The Great Kingdom', sans-serif;
+            font-size: 22pt;
             font-weight: bold;
-            color: #1a1a1a;
-            margin: 5mm 0;
-            border-bottom: 2px solid #333;
+            font-style: italic;
+            margin: 15px 0;
             display: inline-block;
-            padding: 0 20px;
+            padding: 0 15mm;
         }
         
         .member-type {
-            font-size: 22pt;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin: 15mm 0;
-            color: #8b0000; /* Deep red for emphasis */
+            font-size: 28pt;
+            font-weight: bolder;
+            margin: 5mm 0;
+            color: #222;
         }
         
         .body-text {
-            font-size: 14pt;
-            line-height: 1.8;
-            padding: 0 20mm;
+            font-size: 15pt;
+            line-height: 1.6;
         }
 
-        .membership-section {
-            margin-top: 20mm;
+        .membership-label {
+            font-size: 15pt;
+            color: #666;
+            margin-bottom: 2mm;
+        }
+
+        .membership-box {
+            margin-top: 20px;
         }
 
         .membership-number {
-            font-size: 20pt;
+            font-size: 28pt;
             font-weight: bold;
-            margin-top: 5mm;
+            color: #ff0000;
         }
         
-        /* Signature Section */
-        .footer-section {
+        /* QR Code fixed to bottom right */
+        .qr-section {
             position: absolute;
-            bottom: 40mm;
-            width: 100%;
+            bottom: 30mm;
+            right: 30mm;
+            text-align: center;
         }
 
-        .signature-box {
-            width: 200px;
-            margin: 0 auto;
-            border-top: 1px solid #000;
-            padding-top: 5px;
+        .qr-image {
+            width: 32mm;
+            height: 32mm;
         }
 
-        .signature-name {
-            font-size: 14pt;
-            font-weight: bold;
+        .qr-text {
+            font-size: 8pt;
+            margin-top: 2mm;
+            text-transform: uppercase;
         }
     </style>
 </head>
 
 <body>
-    <img src="{{ asset('public/images/certificate.jpg') }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+    @php
+        $image_path = public_path('images/certificate.jpg');
+        $image_data = base64_encode(file_get_contents($image_path));
+    @endphp
+    
+    <img src="data:image/jpeg;base64,{{ $image_data }}" class="background-image">
 
     <div class="certificate-container">
         
-        <div class="inner-border">
-            <div class="content">
-                <div class="certify-text">This is to certify that</div>
-                
-                <div class="member-name">{{ $user->name }}</div>
-                
-                <div class="member-type">PROFESSIONAL MEMBER</div>
-                
-                <div class="body-text">
-                    of <strong>Interior Designers Association of Bangladesh</strong><br>
-                    for the period from<br>
-                    <strong>January 01, {{ date('Y') }}</strong> to 
-                    <strong>December 31, {{ date('Y') }}</strong>
-                </div>
+        <div class="content-wrapper">
+            <div class="certify-text">
+                This is to certify that
+            </div>
 
-                <div class="body-text" style="margin-top: 10mm;">
-                    The holder of this certificate accepts the privilege and responsibility of<br>
-                    <strong>Certified Interior Designer</strong>
-                </div>
+            <div class="member-name">{{ $user->name }}</div>
+            <div class="certify-text">
+                has been accepted as
+            </div>
+            
+            <div class="member-type">{{ $member_type }}</div>
+            
+            <div class="body-text">
+                of <strong>Interior Designers Association of Bangladesh</strong><br>
+                for the period from<br>
+                <strong>{{ $start_date }}</strong> to 
+                <strong>{{ $end_date }}</strong>
+            </div>
 
-                <div class="membership-section">
-                    <div style="font-size: 10pt; letter-spacing: 1px;">MEMBERSHIP NUMBER</div>
-                    <div class="membership-number">{{ $certificate_no }}</div>
-                </div>
+            <div class="body-text">
+                The holder of this certificate accepts the privilege and responsibility of<br>
+                Certified Interior Designer by</span>
+            </div>
+
+            <div class="membership-box">
+                <div class="membership-label">MEMBERSHIP NUMBER</div>
+                <div class="membership-number">{{ $certificate_no }}</div>
             </div>
         </div>
+
+        <div class="qr-section">
+            <img src="data:image/png;base64,{{ $qrcode }}" class="qr-image" />
+            <div class="qr-text">Scan to Verify</div>
+        </div>
+
     </div>
 </body>
 </html>

@@ -35,7 +35,7 @@
             </div><!-- /.container -->
         </section>
         <!-- End Feature -->
-        
+
         <!-- ================= CUSTOM CSS ================= -->
         <style>
             /* ===== TITLE ===== */
@@ -55,118 +55,116 @@
                 margin-top: 8px;
             }
 
-            /* ===== FIXED HEIGHT RESPONSIVE SLIDER ===== */
-            .newsletter-slider,
-            .newsletter-slider .owl-stage-outer,
-            .newsletter-slider .owl-stage,
+            /* ===== SLIDER ===== */
             .newsletter-slider .owl-item {
-                height: 480px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
-            .newsletter-slider .item,
-            .newsletter-slider .slide-img {
-                height: 480px;
-                width: 100%;
+            .newsletter-slider .item {
+                position: relative;
                 overflow: hidden;
+                border-radius: 10px;
+                background: #f9f9f9;
             }
 
             .newsletter-slider .slide-img img {
                 width: 100%;
-                height: 100%;
+                height: 480px;
                 object-fit: cover;
                 object-position: center;
+                transition: transform 0.5s ease;
             }
 
+            .newsletter-slider .item:hover .slide-img img {
+                transform: scale(1.05);
+            }
+
+            .newsletter-slider .item div {
+                padding: 15px;
+            }
+
+            .newsletter-slider h4 a {
+                color: #111;
+                font-weight: 600;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+            .newsletter-slider h4 a:hover {
+                color: #e30613;
+            }
+
+            .newsletter-slider .d-flex i {
+                font-size: 14px;
+            }
+
+            .newsletter-slider .d-flex span {
+                font-size: 14px;
+            }
+
+            /* ===== RESPONSIVE HEIGHT ===== */
             @media (max-width: 991px) {
-                .newsletter-slider,
-                .newsletter-slider .owl-stage-outer,
-                .newsletter-slider .owl-stage,
-                .newsletter-slider .owl-item,
-                .newsletter-slider .item,
-                .newsletter-slider .slide-img {
+                .newsletter-slider .slide-img img {
                     height: 360px;
                 }
             }
 
             @media (max-width: 576px) {
-                .newsletter-slider,
-                .newsletter-slider .owl-stage-outer,
-                .newsletter-slider .owl-stage,
-                .newsletter-slider .owl-item,
-                .newsletter-slider .item,
-                .newsletter-slider .slide-img {
+                .newsletter-slider .slide-img img {
                     height: 280px;
                 }
             }
 
-            /* ===== RIGHT BOXES ===== */
-            .news-box {
-                height: 240px;
-                padding: 30px;
-                color: #fff;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-
-            .news-red {
-                background: #e30613;
-            }
-
-            .news-black {
-                background: #000;
-            }
-
-            .news-box h5 {
-                font-weight: 600;
-            }
-
-            .news-box p {
-                font-size: 14px;
-                margin-top: 10px;
-            }
-
-            .news-box a {
-                color: #fff;
-                font-size: 22px;
-                text-decoration: none;
-            }
-
-            /* ===== OWL NAV (BOOTSTRAP ICONS) ===== */
+            /* ===== OWL NAV (Bootstrap Icons) ===== */
             .newsletter-section .owl-nav {
                 position: absolute;
-                bottom: 30px;
-                left: 50%;
-                transform: translateX(-50%);
+                top: 50%;
+                left: 0;
+                right: 0;
                 display: flex;
-                gap: 14px;
+                justify-content: space-between;
+                transform: translateY(-50%);
+                padding: 0 15px;
+                pointer-events: none; /* Allow only button clicks */
             }
 
             .newsletter-section .owl-nav button {
+                pointer-events: all;
                 width: 42px;
                 height: 42px;
-                background: #e30613 !important;
                 border-radius: 50%;
+                background: #e30613 !important;
+                border: none;
                 color: #fff !important;
-                font-size: 18px;
+                font-size: 20px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                transition: background 0.3s ease;
             }
 
             .newsletter-section .owl-nav button:hover {
                 background: #c00010 !important;
             }
 
-            /* DOTS */
+            /* ===== DOTS ===== */
             .newsletter-section .owl-dots {
                 position: absolute;
-                bottom: 32px;
-                left: 25px;
+                bottom: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 8px;
             }
 
             .newsletter-section .owl-dot span {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
                 background: #ccc !important;
+                display: block;
             }
 
             .newsletter-section .owl-dot.active span {
@@ -174,54 +172,42 @@
             }
         </style>
 
+        @if (count($blog_post) > 0)
         <!-- ================= NEWSLETTER SECTION ================= -->
-        <section class="newsletter-section py-5">
+        <section class="newsletter-section py-5 position-relative">
             <div class="container">
-
-                <!-- Title -->
-                <div class="newsletter-title mb-4">
-                    <h1>The Institute of <span>Architects</span> Bangladesh</h1>
-                    <p>is a professional organization for architects in Bangladesh</p>
+                <div class="newsletter-title text-center mb-4">
+                    <h1>Our <span>Latest</span> News</h1>
+                    <p>Stay updated with our latest posts and announcements</p>
                 </div>
 
                 <div class="row g-0">
-
                     <!-- SLIDER -->
-                    <div class="col-lg-9 position-relative">
+                    <div class="col-12 position-relative">
                         <div class="owl-carousel newsletter-slider">
                             @foreach ($blog_post as $item)
-                                <div class="item">
+                                <div class="item shadow-sm">
                                     <div class="slide-img">
-                                        <img src="{{ asset('public/'.$item->image_path) }}" alt="">
+                                        <img src="{{ asset('public/'.$item->image_path) }}" alt="{{ $item->title }}">
+                                    </div>
+                                    <div class="mt-3">
+                                        <h4><a href="{{ route('page.blog-details', $item->id) }}">{{ $item->title }}</a></h4>
+                                        <div class="d-flex align-items-center text-muted mt-2">
+                                            {{-- <i class="bi bi-person-fill me-2"></i>
+                                            <span>{{ $item->author->name }}</span> --}}
+                                            <i class="bi bi-calendar4-week me-2"></i>
+                                            <span>{{ date('d M, Y', strtotime($item->publish_date)) }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     </div>
-
-                    <!-- RIGHT BOXES -->
-                    <div class="col-lg-3">
-                        <div class="news-box news-red">
-                            <div>
-                                <h5>Competition / Awards</h5>
-                                <p>Open Architectural Design Competition for the Design of Ten Storied...</p>
-                            </div>
-                            <a href="#"><i class="bi bi-arrow-right"></i></a>
-                        </div>
-
-                        <div class="news-box news-black">
-                            <div>
-                                <h5>Seminar / Workshop</h5>
-                                <p>বার্ষিক সদস্যপদ পরীক্ষা সংক্রান্ত বিজ্ঞপ্তি</p>
-                            </div>
-                            <a href="#"><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>
         <!-- ================= END NEWSLETTER SECTION ================= -->
+        @endif
 
 
 

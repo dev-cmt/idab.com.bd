@@ -21,7 +21,7 @@ class BlogPost extends Model
         'content',
         'author_id',
         'publish_date',
-        'published_at',
+        'is_home',
         'status'
     ];
 

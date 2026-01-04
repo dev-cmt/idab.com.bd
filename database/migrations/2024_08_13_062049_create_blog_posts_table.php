@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('content')->nullable(); // Optional content, if necessary
             $table->foreignId('author_id')->constrained('users')->onDelete('cascade'); // Foreign key for author with cascade delete
             $table->dateTime('publish_date')->nullable();
+            $table->boolean('is_home')->default(false);
             $table->enum('status', ['published', 'draft'])->default('draft'); // Default status set to draft
             $table->timestamps();
             $table->softDeletes(); // For soft deletion

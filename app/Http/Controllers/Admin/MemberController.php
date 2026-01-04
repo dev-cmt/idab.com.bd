@@ -24,6 +24,7 @@ use App\Models\Master\MemberType;
 use App\Models\Payment\PaymentDetails;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Helpers\Helper;
 use App\Mail\MemberApproved;
 use Illuminate\Support\Facades\Mail;
@@ -373,17 +374,23 @@ class MemberController extends Controller
 
     public function certificateDownload(User $user)
     {
+        $certificateNo = 'CERT-' . str_pad($user->id, 6, '0', STR_PAD_LEFT);
+        $url = route('profile_show', $user->id);
+
         $data = [
             'user' => $user,
-            'certificate_no' => 'CERT-' . str_pad($user->id, 6, '0', STR_PAD_LEFT),
-            'issue_date' => now()->format('d M Y'),
+            'certificate_no' => $user->member_code ?? $certificateNo,
+            'member_type' => $user->memberType->name ?? 'Member',
+            'start_date' => 'July 01, 2025',
+            'end_date' => 'July 31, 2026',
+            // 'qrcode' =>  $url,
+            'qrcode' => base64_encode(QrCode::format('png')->size(100)->generate($url)), // Generate QR code as base64
         ];
 
         $pdf = Pdf::loadView('layouts.pages.member.certificate-download', $data)
             ->setPaper('a4', 'portrait');
 
         return $pdf->download('certificate_' . $user->id . '_' . date('Y') . '.pdf');
-        
         // return view('layouts.pages.member.certificate-download', $data);
     }
 

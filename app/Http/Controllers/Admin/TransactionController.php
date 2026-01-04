@@ -188,12 +188,12 @@ class TransactionController extends Controller
         $data->user_id = Auth::user()->id;
         $data->save();
 
-        $mailData =[
-            'title' => 'Your Payment Is Receive Successfully',
-            'body' => 'This Is body',
-        ];
-        $user = User::find($data->member_id);
-        Mail::to($user->email)->send(new MemberApproved($mailData));
+        // $mailData =[
+        //     'title' => 'Your Payment Is Receive Successfully',
+        //     'body' => 'This Is body',
+        // ];
+        // $user = User::find($data->member_id);
+        // Mail::to($user->email)->send(new MemberApproved($mailData));
 
         $notification=array('messege'=>'Approve successfully!','alert-type'=>'success');
         return redirect()->back()->with($notification);
@@ -244,12 +244,12 @@ class TransactionController extends Controller
         $data->user_id = Auth::user()->id;
         $data->save();
 
-        $mailData =[
-            'title' => 'You Event Registation Successfully',
-            'body' => 'This Is body.',
-        ];
-        $user = User::find($data->member_id);
-        Mail::to($user->email)->send(new MemberApproved($mailData));
+        // $mailData =[
+        //     'title' => 'You Event Registation Successfully',
+        //     'body' => 'This Is body.',
+        // ];
+        // $user = User::find($data->member_id);
+        // Mail::to($user->email)->send(new MemberApproved($mailData));
 
         $notification=array('messege'=>'Approve successfully!','alert-type'=>'success');
         return redirect()->back()->with($notification);
@@ -300,12 +300,12 @@ class TransactionController extends Controller
         $data->user_id = Auth::user()->id;
         $data->save();
 
-        $mailData =[
-            'title' => 'You Event Registation Successfully',
-            'body' => 'This Is body.',
-        ];
-        $user = User::find($data->member_id);
-        Mail::to($user->email)->send(new MemberApproved($mailData));
+        // $mailData =[
+        //     'title' => 'You Event Registation Successfully',
+        //     'body' => 'This Is body.',
+        // ];
+        // $user = User::find($data->member_id);
+        // Mail::to($user->email)->send(new MemberApproved($mailData));
 
         $notification=array('messege'=>'Approve successfully!','alert-type'=>'success');
         return redirect()->back()->with($notification);

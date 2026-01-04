@@ -118,11 +118,11 @@ class ContactController extends Controller
         $message->status = 1;
         $message->save();
 
-        $mailData =[
-            'title' => 'Thanks for your feedback',
-            'body' => 'Please call us ',
-        ];
-        Mail::to($message->email)->send(new MemberApproved($mailData));
+        // $mailData =[
+        //     'title' => 'Thanks for your feedback',
+        //     'body' => 'Please call us ',
+        // ];
+        // Mail::to($message->email)->send(new MemberApproved($mailData));
 
         $notification=array('messege'=>'Feedback send maill successfully!','alert-type'=>'success');
         return redirect()->back()->with($notification);

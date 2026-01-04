@@ -228,6 +228,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::put('blog-news/update/{blog}', [BlogController::class,'update'])->name('blog.update');
     Route::get('blog-news/show/{blog}', [BlogController::class,'show'])->name('blog.show');
     Route::delete('blog-news/delete/{id}', [BlogController::class,'destroy'])->name('blog.delete');
+    Route::patch('blog-news/toggle-home/{id}', [BlogController::class, 'toggleHome'])->name('blog.toggleHome');
+
     //-- CONTACT
     Route::resource('blog', BlogController::class);
     Route::resource('newsletters', NewsletterController::class);

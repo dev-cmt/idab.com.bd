@@ -22,7 +22,7 @@ class FrontViewController extends Controller
         $executive = $user->where('committee_type_id', 2);
         $event = Event::where('status', 1)->get();
         $contact = Contact::where('status', 1)->get();
-        $blog_post = BlogPost::where('status', 1)->get();
+        $blog_post = BlogPost::where('status', 1)->where('is_home', true)->get();
 
         return view('welcome', compact('user', 'add_hoc', 'executive', 'event', 'contact', 'blog_post'));
     }

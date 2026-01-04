@@ -96,4 +96,13 @@ class BlogController extends Controller
          $data->delete();
          return back();
     }
+
+    public function toggleHome($id)
+    {
+        $post = BlogPost::findOrFail($id);
+        $post->is_home = !$post->is_home; // Toggle boolean
+        $post->save();
+
+        return redirect()->back()->with('success', 'Blog post home status updated!');
+    }
 }
