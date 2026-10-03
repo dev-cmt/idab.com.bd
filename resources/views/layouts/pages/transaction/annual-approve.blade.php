@@ -29,12 +29,12 @@
                                     <td><strong>Date: </strong>{{date("j F, Y", strtotime($row->payment_date))}}<br> <strong>Amount: </strong>{{$row->paid_amount}}</td>
                                     @can('Annual fees approved')
                                     <td class="d-flex justify-content-end">
-                                        <form action="{{route('transaction-registation.approve', $row->id)}}" method="post">
+                                        <form action="{{route('transaction-annual.approve', $row->id)}}" method="post">
                                             <button class="btn btn-sm btn-info p-1 mr-1">Approve</i></button>
                                             @csrf
                                             @method('PATCH')
                                         </form>
-                                        <form action="{{route('transaction-registation.cancel', $row->id)}}" method="post">
+                                        <form action="{{route('transaction-annual.cancel', $row->id)}}" method="post">
                                             <button class="btn btn-sm btn-danger p-1">Canceled</i></button>
                                             @csrf
                                             @method('PATCH')
@@ -88,12 +88,12 @@
                                     </td>
                                     @can('Annual fees approved')
                                     <td class="d-flex justify-content-end">
-                                        <form action="{{route('transaction-registation.approve', $row->id)}}" method="post">
+                                        <form action="{{route('transaction-annual.approve', $row->id)}}" method="post">
                                             <button class="btn btn-sm btn-info p-1 m-1">Approve</i></button>
                                             @csrf
                                             @method('PATCH')
                                         </form>
-                                        <form action="{{route('transaction-registation.cancel', $row->id)}}" method="post">
+                                        <form action="{{route('transaction-annual.cancel', $row->id)}}" method="post">
                                             <button class="btn btn-sm btn-danger p-1 m-1">Canceled</i></button>
                                             @csrf
                                             @method('PATCH')
@@ -154,7 +154,7 @@
                                         @endif
                                     </td>
                                     <td class="text-right">
-                                        <a href="{{ route('transaction-registration.details', $row->id) }}" class="btn btn-info shadow btn-xs sharp mr-1"><i class="flaticon-381-view"></i></a>
+                                        <a href="{{ route('transaction-annual.details', $row->id) }}" class="btn btn-info shadow btn-xs sharp mr-1"><i class="flaticon-381-view"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

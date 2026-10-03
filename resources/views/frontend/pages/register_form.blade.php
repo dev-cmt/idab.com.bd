@@ -94,7 +94,7 @@
                                 <p><i class="bi bi-check-lg me-3"></i>3. Trade license/ Job Certificate with 5 years’ experience.</p>
                                 <p><i class="bi bi-check-lg me-3"></i>4. Updated TIN paper</p>
                                 <p><i class="bi bi-check-lg me-3"></i>5. NID</p>
-                                <p class="mb-4">(Registration Fee 2000/-) (Annual Fee 4000/-)</p>
+                                <p class="mb-4">(Registration Fee 2000/-) (Annual Fee 1000/-)</p>
                             </div>
                             <div id="tab-pane-2" style="font-size:12px;">
                                 <h5 class="mb-4">Associate Member</h5>
@@ -107,7 +107,7 @@
                                     <p><i class="bi bi-check-lg me-3"></i>3. Updated Trade License as Interior design Company</p>
                                     <p><i class="bi bi-check-lg me-3"></i>4. Updated TIN paper</p>
                                     <p><i class="bi bi-check-lg me-3"></i>5. NID</p>
-                                <p class="mb-4">(Registration Fee 2000/-) (Annual Fee 4000/-)</p>
+                                <p class="mb-4">(Registration Fee 2000/-) (Annual Fee 1000/-)</p>
                             </div>
                             <div id="tab-pane-3" style="font-size:12px;">
                                 <h5 class="mb-4">Candidate Member</h5>
@@ -119,7 +119,7 @@
                                     <p><i class="bi bi-check-lg me-3"></i>3. Trade license/ Job Certificate</p>
                                     <p><i class="bi bi-check-lg me-3"></i>4. Updated TIN paper</p>
                                     <p><i class="bi bi-check-lg me-3"></i>5. NID</p>
-                                <p class="mb-4">(Registration Fee 2000/-) (Annual Fee 4000/-)</p>
+                                <p class="mb-4">(Registration Fee 2000/-) (Annual Fee 1000/-)</p>
                             </div>
                             <div id="tab-pane-4" style="font-size:12px;">
                                 <h5 class="mb-4">Trade Member</h5>

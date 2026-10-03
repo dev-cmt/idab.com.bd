@@ -33,7 +33,9 @@
                                     <td>{{$row->email}}</td>
                                     <td>{{ $row->infoPersonal->contact_number ?? 'null' }}</td>
                                     <td>{{$row->memberType->name ?? 'null'}}</td>
+                                    @canany('Super-Admin')
                                     <td>
+                                        @if($row->hasPaidCurrentYearFee())
                                         <a href="{{ route('member-certificate.download', $row->id) }}" class="btn btn-sm btn-secondary p-1 px-2 m-1">
                                             <i class="flaticon-381-download"></i><span class="btn-icon-add"></span> Certificate
                                         </a><br>
@@ -43,8 +45,10 @@
                                         <a href="{{ route('member-id-card.download', $row->id) }}" class="btn btn-sm btn-secondary p-1 px-2 m-1">
                                             <i class="flaticon-381-download"></i><span class="btn-icon-add"></span> ID Card
                                         </a>
+                                        @else
+                                        <span class="badge light badge-danger">Membership Expired</span>
+                                        @endif
                                     </td>
-                                    @canany('Super-Admin')
                                     <td>
                                         <button class="badge light badge-info">{{$row->parentUser->name ?? 'null'}}</i></button>
                                     </td>
@@ -69,7 +73,7 @@
             </div>
         </div>
     </div>
-    
+
 
 
 </x-app-layout>

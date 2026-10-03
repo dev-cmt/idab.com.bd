@@ -17,9 +17,9 @@
             height: 95px;
             transition: 500ms all;
             margin-bottom: 10px;
+            cursor: pointer;
         }
         input[type=radio]:checked + label>img {
-            /* transform: rotateZ(-45deg) rotateX(10deg); */
             transform: scale(0.8);
         }
         .box{
@@ -43,57 +43,34 @@
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-6 col-5">
-                                <h5 class="f-w-500">Member ID<span class="pull-right">:</span>
-                                </h5>
+                                <h5 class="f-w-500">Member ID<span class="pull-right">:</span></h5>
                             </div>
-                            <div class="col-sm-6 col-7"><span>{{Auth::user()->member_code}}</span>
-                            </div>
+                            <div class="col-sm-6 col-7"><span>{{Auth::user()->member_code}}</span></div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-6 col-5">
-                                <h5 class="f-w-500">Name <span class="pull-right">:</span>
-                                </h5>
+                                <h5 class="f-w-500">Name <span class="pull-right">:</span></h5>
                             </div>
-                            <div class="col-sm-6 col-7"><span>{{Auth::user()->name}}</span>
-                            </div>
+                            <div class="col-sm-6 col-7"><span>{{Auth::user()->name}}</span></div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-6 col-5">
-                                <h5 class="f-w-500">Email <span class="pull-right">:</span>
-                                </h5>
+                                <h5 class="f-w-500">Email <span class="pull-right">:</span></h5>
                             </div>
-                            <div class="col-sm-6 col-7"><span>{{Auth::user()->email}}</span>
-                            </div>
+                            <div class="col-sm-6 col-7"><span>{{Auth::user()->email}}</span></div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-6 col-5">
-                                <h5 class="f-w-500">Number <span class="pull-right">:</span>
-                                </h5>
+                                <h5 class="f-w-500">Number <span class="pull-right">:</span></h5>
                             </div>
-                            <div class="col-sm-6 col-7"><span>{{Auth::user()->infoPersonal->contact_number ?? 'null'}}</span>
-                            </div>
+                            <div class="col-sm-6 col-7"><span>{{Auth::user()->infoPersonal->contact_number ?? 'null'}}</span></div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-sm-6 col-5">
-                                <h5 class="f-w-500">Joining Date <span class="pull-right">:</span>
-                                </h5>
+                                <h5 class="f-w-500">Joining Date <span class="pull-right">:</span></h5>
                             </div>
-                            <div class="col-sm-6 col-7"><span>{{date("j F, Y", strtotime(Auth::user()->created_at))}}</span>
-                            </div>
+                            <div class="col-sm-6 col-7"><span>{{date("j F, Y", strtotime(Auth::user()->created_at))}}</span></div>
                         </div>
-                        {{-- <div class="row mt-4">
-                            <div class="col-sm-6 col-5">
-                                <h5 class="f-w-500">Member Ledger <span class="pull-right">:</span>
-                                </h5>
-                            </div>
-                            <div class="col-sm-6 col-7">
-                                @if ($total_due > 0)
-                                    <span class="text-danger">৳ {{$total_due}}</span>
-                                @else
-                                    <span class="text-primary">৳ {{-$total_due}} ( Advance ) </span>
-                                @endif
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -116,12 +93,6 @@
                                 <div>
                                     <input type="radio" name="payment_method_id" id="bKash" class="input-hidden" value="1"/>
                                     <label for="bKash"><img src="{{asset('public/images')}}/payment/bKash.png" alt="Payment bKash" /></label>
-                                
-                                    {{-- <input type="radio" name="payment_method_id" id="roket" class="input-hidden" value="2"/>
-                                    <label for="roket"><img src="{{asset('public/images')}}/payment/roket.png" alt="Payment roket" /></label>
-                                
-                                    <input type="radio" name="payment_method_id" id="nagad" class="input-hidden" value="3"/>
-                                    <label for="nagad"><img src="{{asset('public/images')}}/payment/nagad.png" alt="Payment nagad" /></label> --}}
                                     
                                     <input type="radio" name="payment_method_id" id="city-bank" class="input-hidden" value="2"/>
                                     <label for="city-bank"><img src="{{asset('public/images')}}/payment/city-bank.jpg" alt="Payment upay"/></label>
@@ -133,12 +104,13 @@
                                     @enderror
                                 </div>
                             </div>
+
                             <div class="row form-group pt-4">
                                 <div class="form-group col-md-6">
                                     <label class="form-label" id="labelChange">Payment Number 
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <select name="payment_number" id="payment_number" class="form-control form-select  @error('payment_number') is-invalid @enderror" style="height: 40px;">
+                                    <select name="payment_number" id="payment_number" class="form-control form-select @error('payment_number') is-invalid @enderror" style="height: 40px;">
                                         <option selected disabled>Not Found</option>
                                     </select>
                                     @error('payment_number')
@@ -180,12 +152,12 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-6" id="transferNumber">
+                                <div class="form-group col-md-6">
                                     <label class="form-label">Description</label>
                                     <textarea class="form-control" name="message" rows="1" placeholder="Enter your message here..."></textarea>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <div class=" d-flex justify-content-center">
+                                    <div class="d-flex justify-content-center">
                                         <div class="col-10 text-center">
                                             <label><strong>Dues Amount</strong></label>
                                             <div class="input-group input-primary">
@@ -213,10 +185,26 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- bKash QR Code Modal -->
+    <div class="modal fade" id="bKashModal" tabindex="-1" role="dialog" aria-labelledby="bKashModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bKashModalLabel">bKash Payment QR Code</h5>
+                    <button type="button" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="{{asset('public/images')}}/payment/qr_bKash.jpg" class="img-fluid" alt="bKash QR Code">
+                </div>
+            </div>
+        </div>
+    </div>
+
     @push('script')
     <script>
-        //======Show & Get Number
         $(document).ready(function(){
             $('input[type="radio"]').click(function(){
                 var inputValue = $(this).attr("value");
@@ -225,21 +213,19 @@
                 $(targetBox).show();
             });
         });
-        //======Get Payment Number Data
+
         $(document).on('click', 'input[type="radio"]', function() {
             var methodId = $(this).attr("value");
             $("#loading").show();
             $.ajax({
-                url: '{{ route('get-payment-number')}}', // Make sure the route is correct
+                url: '{{ route('get-payment-number')}}',
                 method: 'GET',
                 dataType: "json",
                 data: {'method_id': methodId},
                 success: function(response) {
-                    //--Get Customer Type Data
                     var datas = response.data;
                     var payment_number_dr = $('#payment_number');
                     payment_number_dr.empty();
-                    // payment_number_dr.append('<option disabled selected>--Select--</option>');
                     if(datas.length > 0){
                         $.each(datas, function(index, option) {
                             payment_number_dr.append('<option value="' + option.number + '">' + option.number + '</option>');
@@ -254,12 +240,20 @@
                     alert('Sorry try again!');
                 }
             });
-            if(methodId == 2){
+
+            if(methodId == 1){
+                $('#transferNumber').show();
+                $('#transactionNumber').show();
+                $('#labelChange').html('Payment Number');
+                $('#slip').hide();
+                // Trigger Modal trigger for bKash
+                $('#bKashModal').modal('show');
+            } else if(methodId == 2){
                 $('#transferNumber').hide();
                 $('#transactionNumber').hide();
                 $('#labelChange').html('Bank-Number');
                 $('#slip').show();
-            }else{
+            } else {
                 $('#transferNumber').show();
                 $('#transactionNumber').show();
                 $('#labelChange').html('Payment Number');

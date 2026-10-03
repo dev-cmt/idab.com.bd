@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\Admin\Event;
 use App\Models\Master\MemberType;
+use App\Models\Payment\AnnualFees;
 use App\Models\Payment\EventRegister;
 use App\Models\Payment\PaymentReasons;
 use App\Models\Payment\PaymentMethods;
@@ -58,9 +59,11 @@ class TransactionController extends Controller
                 ]);
             }
     
-            $eventCheck = EventRegister::where('event_id', $request->ref_reason_id)->where('member_id', Auth::user()->id)->first();
-            if ($eventCheck) {
-                return redirect()->back()->with('success', 'You have already registered for this event.');
+            if ($request->payment_reason_id == 2 && $request->ref_reason_id) {
+                $eventCheck = EventRegister::where('event_id', $request->ref_reason_id)->where('member_id', Auth::user()->id)->first();
+                if ($eventCheck) {
+                    return redirect()->back()->with('success', 'You have already registered for this event.');
+                }
             }
     
             $update = User::findorfail(Auth::user()->id);
@@ -125,22 +128,14 @@ class TransactionController extends Controller
                 $notification=array('messege'=>'Event Register successfully!','alert-type'=>'success');
                 return redirect()->route('transaction-event.index')->with($notification);
             }
-            if($request->payment_reason_id == 3){ //Anuual Fees
-                $eventStore = new EventRegister();
-                $eventStore->self = $request->self;
-                $eventStore->spouse = $request->spouse;
-                $eventStore->child_above = $request->child_above;
-                $eventStore->child_bellow = $request->child_bellow;
-                $eventStore->guest = $request->guest;
-                $eventStore->driver = $request->driver;
-                $eventStore->total_person = $request->total_person;
-                $eventStore->total_amount = $request->amount;
-                $eventStore->payment_details_id = $paymentDetails->id;
-                $eventStore->event_id = $request->ref_reason_id;
-                $eventStore->member_id = Auth::user()->id;
-                $eventStore->save();
+            if($request->payment_reason_id == 3){ //Annual Fees
+                $annualFee = new AnnualFees();
+                $annualFee->paid_amount = $request->amount;
+                $annualFee->payment_details_id = $paymentDetails->id;
+                $annualFee->member_id = Auth::user()->id;
+                $annualFee->save();
                 
-                $notification=array('messege'=>'Anuual fees payment successfully!','alert-type'=>'success');
+                $notification=array('messege'=>'Annual fees payment successfully!','alert-type'=>'success');
                 return redirect()->route('transaction-annual.index')->with($notification);
             }
 
@@ -274,7 +269,7 @@ class TransactionController extends Controller
      */
     public function indexAnnualFees() 
     {
-        $data = PaymentDetails::where('member_id', Auth::user()->id)->get();
+        $data = PaymentDetails::where('member_id', Auth::user()->id)->where('payment_reason_id', 3)->get();
         return view('layouts.pages.transaction.annual-index',compact('data'));
     }
 
@@ -289,23 +284,11 @@ class TransactionController extends Controller
         $record = PaymentDetails::whereIn('status', [1,2])->where('payment_reason_id', 3)->get();
         return view('layouts.pages.transaction.annual-approve', compact('data', 'record', 'bank'));
     }
-    public function approveAnnualApproved($id) {
-        
-        $eventUpdate = EventRegister::findOrFail($id);
-        $eventUpdate->status = 1;
-        $eventUpdate->save();
-
-        $data = PaymentDetails::findOrFail($eventUpdate->payment_details_id);
+    public function approveAnnualFeesApproved($id) {
+        $data = PaymentDetails::findOrFail($id);
         $data->status = 1;
         $data->user_id = Auth::user()->id;
         $data->save();
-
-        // $mailData =[
-        //     'title' => 'You Event Registation Successfully',
-        //     'body' => 'This Is body.',
-        // ];
-        // $user = User::find($data->member_id);
-        // Mail::to($user->email)->send(new MemberApproved($mailData));
 
         $notification=array('messege'=>'Approve successfully!','alert-type'=>'success');
         return redirect()->back()->with($notification);

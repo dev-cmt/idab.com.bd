@@ -140,7 +140,7 @@
 
         $(document).ready(function() {
             $("#owl-partners").owlCarousel({
-                items: 4,
+                items: 2,
                 navigation: false,
             });
 

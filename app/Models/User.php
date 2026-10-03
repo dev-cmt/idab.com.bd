@@ -96,6 +96,28 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(PaymentDetails::class, 'member_id');
     }
+
+    /**
+     * Check if member has paid Membership Fee (reason 1) or Renewal Fee (reason 3) for the current year.
+     */
+    public function hasPaidCurrentYearFee()
+    {
+        $currentYear = (int) date('Y');
+
+        $latestPayment = $this->paymentDetails()
+            ->whereIn('payment_reason_id', [1, 3])
+            ->where('status', '!=', 2)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if (!$latestPayment) {
+            return false;
+        }
+
+        $paymentYear = (int) date('Y', strtotime($latestPayment->payment_date ?? $latestPayment->created_at));
+
+        return $paymentYear >= $currentYear;
+    }
     
 
     /**

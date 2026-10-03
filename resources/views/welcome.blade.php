@@ -254,7 +254,7 @@
 
             </div>
         </section>--><!-- 75End .content--><!-- End About Section -->
-        
+
         @if (count($event) > 0)
         <!-- ======= Upcoming Events Section======= -->
         <section id="events" class="events animate__animated animate__fadeInUp">
@@ -263,8 +263,8 @@
                 <div class="section-title">
                     <h2 class="reveal">UPCOMING EVENTS</h2>
                 </div>
-                
-                
+
+
                 <div id="owl-upcoming-events" class="owl-carousel">
                     @foreach ($event as $item)
                     <!--<a href="{{route('page.events-details', $item->id)}}">-->
@@ -275,14 +275,14 @@
                     </a>
                     @endforeach
                 </div>
-                
+
                 <div class="d-flex justify-content-center">
                     <!--<a href="{{Route('page.events')}}" class="btn btn-danger px-4" style="background:#EF1620;">More Events</a>-->
                     <a href="https://idabaward.com" class="btn btn-danger px-4" style="background:#EF1620;">More Events</a>
                 </div>
 
             </div>
-             
+
         </section><!-- End Upcoming Events Section -->
         @endif
 
@@ -334,7 +334,7 @@
 
         <!-- ======= Why Us Section ======= -->
        <!-- End Why Us Section -->
-        
+
         <!-- ======= Counts Section ======= -->
         <section id="counts" class="counts section-bg">
             <div class="container">
@@ -381,7 +381,7 @@
             </div>
         </section><!-- End Counts Section -->
 
-        <!-- ======= Team Section ======= 
+        <!-- ======= Team Section =======
         @if (count($add_hoc) > 0)
         <section id="team" class="team">
             <div class="container">
@@ -417,11 +417,11 @@
         <!-- ======= Frequently Asked Questions Section ======= -->
         <section class="faq section-bg">
             <div class="container">
-    
+
                 <div class="section-title">
                     <!--<h2 class="reveal">Frequently Asked Questions</h2>-->
                 </div>
-    
+
                 <div class="row">
                     <div class="col-lg-3 nav nav-pills" style="height: 380px;width: 254px;overflow: hidden;">
                         <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-pane-3" type="button">
@@ -463,7 +463,7 @@
                                         <p><i class="bi bi-check-lg me-3"></i>1000/-</p></p>
                                         <a href="{{route('page.requirements_student')}}" class="btn btn-info btn-sm">Read More</a>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="tab-pane-2">
@@ -486,7 +486,7 @@
                                         <p><i class="bi bi-check-lg me-3"></i>2000/-</p>
                                         <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
                                     </div>
-                  
+
                                 </div>
                             </div>
                             <div class="tab-pane fade show active" id="tab-pane-3">
@@ -509,7 +509,7 @@
                                         <p><i class="bi bi-check-lg me-3"></i>2000/-</p>
                                         <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
                                     </div>
-                                  
+
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="tab-pane-4">
@@ -533,7 +533,7 @@
                                         <p><i class="bi bi-check-lg me-3"></i>3000/-</p>
                                         <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
                                     </div>
-                                 
+
                                 </div>
                             </div>
                                 <div class="tab-pane fade" id="tab-pane-5">
@@ -557,7 +557,7 @@
                                         <p><i class="bi bi-check-lg me-3"></i>15000/-</p>
                                         <a href="{{route('page.requirements_details')}}" class="btn btn-info btn-sm">Read More</a>
                                     </div>
-                                 
+
                                 </div>
                             </div>
                                 <div class="tab-pane fade" id="tab-pane-6">
@@ -578,110 +578,159 @@
                                         <p><i class="bi bi-check-lg me-3"></i>7.00/-</p>
                                         <a href="#" class="button">Read More</a>
                                     </div>
-                                 
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-    
+
             </div>
         </section><!-- End Frequently Asked Questions Section -->
-        
+
         <!--======= Recognized Section ======= -->
-        <section id="clients" class="clients mt-5 animate__animated animate__fadeInUp">
+        <!--<section id="clients" class="clients mt-5 animate__animated animate__fadeInUp">-->
+        <!--    <div class="container">-->
+        <!--         <div class="section-title">-->
+        <!--            <h2>International Networks</h2>-->
+        <!--        </div>-->
+
+        <!--        <div id="owl-clients" class="owl-carousel">-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/aiub.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/aust.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/brac.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/bsmrstu.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/bu.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/buet.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/cuet.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/diu.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/duet.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/hstu.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/ku.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/kuet.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/mist.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/nsu.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/pu.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/pust.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/ruet.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/sust.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/uap.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <img src="{{asset('public/images')}}/university/uct.jpg" class="img-fluid" alt="">-->
+        <!--            </div>-->
+        <!--          </div>-->
+
+        <!--    </div>-->
+        <!--</section>-->
+        
+        <!--======= International Networks Section ======= -->
+        <section class="mt-6 animate__animated animate__fadeInUp">
             <div class="container">
                  <div class="section-title">
-                    <h2>Recognized University/Institute/Design School</h2>
+                    <h2>International Networks</h2>
                 </div>
-
-                <div id="owl-clients" class="owl-carousel">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/aiub.jpg" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/aust.jpg" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/brac.jpg" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/bsmrstu.jpg" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/bu.jpg" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/buet.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/cuet.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/diu.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/duet.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/hstu.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/ku.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/kuet.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/mist.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/nsu.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/pu.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/pust.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/ruet.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/sust.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/uap.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{asset('public/images')}}/university/uct.jpg" class="img-fluid" alt="">
-                    </div>
-                   
-                  </div>
-
+                <div class="d-flex align-items-center justify-content-center">
+                    <a href="https://hdii.or.id"><img src="{{asset('public/images')}}/pages/hdii.jpeg" class="img-fluid" alt=""></a>
+                </div>
             </div>
-        </section><!-- End Recognized Section 
-        
-         <!--======= Clients Section ======= -->
-        <section id="clients" class="clients section-bg mt-6 animate__animated animate__fadeInUp">
+        </section><!-- End International Networks Section
+
+        <!--======= Clients Section ======= -->
+        <!--<section id="clients" class="clients section-bg mt-6 animate__animated animate__fadeInUp">-->
+        <!--    <div class="container">-->
+        <!--         <div class="section-title">-->
+        <!--            <h2>Corporate Partners</h2>-->
+        <!--        </div>-->
+        <!--        <div id="owl-partners" class="owl-carousel">-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <a href="https://www.mykitchen-bd.com"><img src="{{asset('public/images')}}/clients/mykitchen.jpg" class="img-fluid" alt=""></a>-->
+        <!--            </div>-->
+        <!--            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                <a href="https://harrington.com.co"><img src="{{asset('public/images')}}/clients/harrington.jpeg" class="img-fluid" alt=""></a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--    </div>-->
+        <!--</section>-->
+        <style>
+            .clients-logos {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 30px; /* space between logos */
+                flex-wrap: wrap; /* responsive wrap */
+            }
+            
+            .logo-box {
+                height: 220px;      /* same height */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .logo-box img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain; /* no stretch */
+            }
+            @media (max-width: 768px) {
+                .logo-box {
+                    height: 1860px;
+                }
+            }
+        </style>
+        <section class="section-bg mt-6 animate__animated animate__fadeInUp">
             <div class="container">
                  <div class="section-title">
                     <h2>Corporate Partners</h2>
                 </div>
-
-                <div id="owl-partners" class="owl-carousel">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <a href="https://www.mykitchen-bd.com"><img src="{{asset('public/images')}}/clients/mykitchen.jpg" class="img-fluid" alt=""></a>
-                    </div>
+                <div class="clients-logos">
+                    <a href="https://www.mykitchen-bd.com" class="logo-box">
+                        <img src="{{asset('public/images')}}/clients/mykitchen.jpg" alt="">
+                    </a>
+                    <a href="https://harrington.com.co" class="logo-box">
+                        <img src="{{asset('public/images')}}/clients/harrington.jpeg" alt="">
+                    </a>
                 </div>
-
             </div>
-        </section><!-- End Clients Section 
+        </section><!-- End Clients Section -->
 
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact animate__animated animate__fadeInUp">
@@ -697,7 +746,7 @@
                             <address> Rain Razzak Plaza,2 Shahid Tazuddin Soroni, Moghbazar, Dhaka-1217, Bangladesh</address>
                         </div>
                     </div>
-    
+
                     <div class="col-md-4">
                         <div class="contact-phone">
                             <i class="bi bi-phone"></i>
@@ -705,7 +754,7 @@
                             <p><a href="tel:+8801806428222">+880 1806 428 222</a></p>
                         </div>
                     </div>
-    
+
                     <div class="col-md-4">
                         <div class="contact-email">
                             <i class="bi bi-envelope"></i>
@@ -716,8 +765,8 @@
                 </div>
 
                 <div class="form">
-                    <form action="{{route('contact-us.store')}}" method="post" enctype="multipart/form-data" class="php-email-form"> 
-                        @csrf                        
+                    <form action="{{route('contact-us.store')}}" method="post" enctype="multipart/form-data" class="php-email-form">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" @guest value="{{ old('name')}}" @endguest @auth value="{{Auth::user()->name}}" @endauth  placeholder="Your Name" style="height: 55px;">
@@ -777,7 +826,7 @@
         </div>
     </div>
 
-    
+
     @if (session()->has('success'))
         <script>
             Swal.fire({

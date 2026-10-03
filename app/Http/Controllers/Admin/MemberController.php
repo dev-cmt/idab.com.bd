@@ -376,6 +376,11 @@ class MemberController extends Controller
 
     public function certificateDownload(User $user)
     {
+        if (!$user->hasPaidCurrentYearFee()) {
+            $notification = array('messege' => 'Membership Expired or Current Year Fee Not Paid!', 'alert-type' => 'error');
+            return redirect()->back()->with($notification);
+        }
+
         $certificateNo = 'CERT-' . str_pad($user->id, 6, '0', STR_PAD_LEFT);
         $url = route('member-verify', $user->id);
 
@@ -383,26 +388,59 @@ class MemberController extends Controller
             'user' => $user,
             'certificate_no' => $user->member_code,
             'member_type' => $user->memberType->name ?? 'Member',
-            'start_date' => 'July 01, 2025',
-            'end_date' => 'June 30, 2026',
-            // 'qrcode' =>  $url,
-            'qrcode' => base64_encode(QrCode::format('png')->size(100)->generate($url)), // Generate QR code as base64
+            'start_date' => 'July 01, ' . date('Y'),
+            'end_date' => 'June 30, ' . (date('Y') + 1),
+            'qrcode' => base64_encode(QrCode::format('png')->size(100)->generate($url)),
         ];
 
         $pdf = Pdf::loadView('layouts.pages.member.certificate-download', $data)
             ->setPaper('a4', 'portrait');
 
         return $pdf->download('certificate_' . $user->id . '_' . date('Y') . '.pdf');
-        // return view('layouts.pages.member.certificate-download', $data);
+    }
+
+    public function memberIdCardDownload(User $user)
+    {
+        if (!$user->hasPaidCurrentYearFee()) {
+            $notification = array('messege' => 'Membership Expired or Current Year Fee Not Paid!', 'alert-type' => 'error');
+            return redirect()->back()->with($notification);
+        }
+
+        $pdf = Pdf::loadView('layouts.pages.member.id-card-download', compact('user'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('id_card_' . $user->id . '_' . date('Y') . '.pdf');
+    }
+
+    public function moneyReceiptDownload(User $user)
+    {
+        if (!$user->hasPaidCurrentYearFee()) {
+            $notification = array('messege' => 'Membership Expired or Current Year Fee Not Paid!', 'alert-type' => 'error');
+            return redirect()->back()->with($notification);
+        }
+
+        $paymentDetails = $user->paymentDetails()
+            ->whereIn('payment_reason_id', [1, 3])
+            ->where('status', '!=', 2)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $transaction_id = $paymentDetails->transaction_id ?? ($paymentDetails->transaction_number ?? 'N/A');
+
+        $pdf = Pdf::loadView('layouts.pages.member.money-receipt-download', compact('user', 'paymentDetails', 'transaction_id'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('money_receipt_' . $user->id . '_' . date('Y') . '.pdf');
     }
 
     public function memberVerify($id)
     {
-        $user = User::find($id);
-        // Load relationships if needed
-        $user->load(['memberType', 'infoPersonal', 'infoAcademic.mastQualification']);
+        $user = User::findOrFail($id);
+        $user->load(['memberType', 'infoPersonal', 'infoAcademic.mastQualification', 'infoCompany', 'infoOther']);
 
-        return view('layouts.pages.member.member-verify', compact('user'));
+        $isPaidCurrentYear = $user->hasPaidCurrentYearFee();
+
+        return view('layouts.pages.member.member-verify', compact('user', 'isPaidCurrentYear'));
     }
 
     /**___________________________________________________________________________________
@@ -418,17 +456,18 @@ class MemberController extends Controller
             ->leftJoin('member_types', 'users.member_type_id', '=', 'member_types.id')
             ->leftJoin('payment_details', function($join) {
                 $join->on('users.id', '=', 'payment_details.member_id')
-                    ->where('payment_details.payment_reason_id', 1)
-                    ->whereRaw('payment_details.created_at = (
-                        SELECT MAX(pd.created_at)
+                    ->whereRaw('payment_details.id = (
+                        SELECT MAX(pd.id)
                         FROM payment_details pd
                         WHERE pd.member_id = users.id
-                        AND pd.payment_reason_id = 1
+                        AND pd.payment_reason_id IN (1, 3)
+                        AND pd.status != 2
                     )');
             })
             ->select(
                 'users.*',
                 'info_personals.contact_number',
+                'info_personals.dob',
                 'info_companies.address',
                 'member_types.name as member_type_name',
                 'payment_details.payment_date',
@@ -447,7 +486,7 @@ class MemberController extends Controller
             'Last Payment Date',
             'Last Payment Amount',
             'Member Type',
-            'Remarks'
+            'Remarks',
         ];
 
         $groupedUsers = $users->groupBy(function ($user) {
@@ -495,7 +534,8 @@ class MemberController extends Controller
                     $user->payment_date ? date('Y-m-d', strtotime($user->payment_date)) : '',
                     $user->paid_amount ?? '',
                     $user->member_type_name ?? '',
-                    $user->remarks ?? '',
+                    $user->dob ? date('d M', strtotime($user->dob)) : '',
+                    // $user->remarks ?? '',
                 ], null, 'A' . $row);
                 $row++;
             }
@@ -538,6 +578,12 @@ class MemberController extends Controller
      */
 
     function downloadZipFile($userId) {
+        $user = User::find($userId);
+        if (!$user || !$user->hasPaidCurrentYearFee()) {
+            $notification = array('messege' => 'Membership Expired or Current Year Fee Not Paid!', 'alert-type' => 'error');
+            return redirect()->back()->with($notification);
+        }
+
         // Define the path where the user's documents are stored
         $documentPath = public_path("document/member/{$userId}");
 

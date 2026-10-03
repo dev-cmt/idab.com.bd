@@ -69,6 +69,7 @@
                             <p class="small mb-5"><i class="fa fa-calendar-o mr-2"></i>{{date("j F, Y", strtotime($user->created_at))}}</p>
                         </div>
                     </div>
+                    @if($user->hasPaidCurrentYearFee())
                     <a href="{{ route('member-certificate.download', $user->id) }}" class="btn btn-sm btn-secondary p-1 px-2 m-1">
                         <i class="flaticon-381-download"></i><span class="btn-icon-add"></span>Certificate  Download
                     </a><br>
@@ -78,7 +79,16 @@
                     <a href="{{ route('member-id-card.download', $user->id) }}" class="btn btn-sm btn-secondary p-1 px-2 m-1">
                         <i class="flaticon-381-download"></i><span class="btn-icon-add"></span>ID Card  Download
                     </a>
+                    @else
+                    <span class="badge badge-danger p-2 m-1">Membership Expired (Fee Unpaid)</span>
+                    @endif
                 </div>
+
+                @if(!$user->hasPaidCurrentYearFee())
+                <div class="alert alert-danger m-3 font-weight-bold">
+                    <i class="fa fa-exclamation-triangle mr-2"></i> Warning: Membership Expired! This member has not paid the Membership Fee or Renewal Fee for the current year.
+                </div>
+                @endif
     
                 <div class="card-body">
                     <div class="profile-tab">
